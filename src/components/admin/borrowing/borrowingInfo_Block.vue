@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'BookInfoBlock',
+  name: 'BorrowingInfoBlock',
   props: {
     title: {
       type: String,

@@ -1,6 +1,6 @@
 <template>
   <div class="circulation-block">
-    <div class="header" :style="{ backgroundColor: titleColor }">
+    <div class="title" :style="{ backgroundColor: titleColor }">
       {{ activityTitle }}
     </div>
     <div class="activity-list">
@@ -121,75 +121,6 @@ export default {
 </script>
 
 <style scoped>
-.circulation-block {
-  min-width: 200px;
-  border-radius: 10px;
-  text-align: center;
-  border: 1px solid #ccc;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  background-color: aliceblue;
-  margin: 10px;
-}
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px 10px 0 0;
-  padding: 10px;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.circulation-block:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 10px 10px 0 0;
-  padding: 10px;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.icon {
-  width: 50px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  margin: 10px 0;
-}
-
-.book-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.book-title {
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.book-author {
-  font-size: 0.85rem;
-  color: #666;
-  font-style: italic;
-  margin-bottom: 6px;
-}
-
-.activity {
-  font-size: 0.85rem;
-  font-weight: 600;
-}
-
 /* Large table number styling for reading activities */
 .table-number-large {
   font-size: 1.4rem;
@@ -199,46 +130,68 @@ export default {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Status chip styling similar to member detail */
-.status-chip {
-  width: fit-content;
-  display: inline-block;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  text-transform: capitalize;
-  letter-spacing: 0.2px;
-  margin-top: 2px;
+/* Responsive design */
+@media (max-width: 768px) {
+  .circulation-block {
+    width: 250px;
+    min-width: 250px;
+    max-width: 250px;
+  }
+
+  .title {
+    font-size: 1rem;
+    padding: 10px 8px;
+  }
+
+  .book-info {
+    margin: 10px 8px;
+    min-height: 70px;
+  }
+
+  .book-title {
+    font-size: 0.9rem;
+  }
+
+  .book-author {
+    font-size: 0.8rem;
+  }
+
+  .status-chip {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+
+  .table-number-large {
+    font-size: 1.2rem;
+  }
 }
 
-.status-active {
-  background-color: #e7f8ef;
-  color: #1b7c2f;
-  border: 1px solid #1b7c2f;
-}
+@media (max-width: 480px) {
+  .circulation-block {
+    width: 220px;
+    min-width: 220px;
+    max-width: 220px;
+  }
 
-.status-suspended {
-  background-color: #fff6e0;
-  color: #b97a00;
-  border: 1px solid #b97a00;
-}
+  .title {
+    font-size: 0.95rem;
+    padding: 8px 6px;
+  }
 
-.status-expired {
-  background-color: #fdeaea;
-  color: #c62828;
-  border: 1px solid #c62828;
-}
+  .book-info {
+    margin: 8px 6px;
+  }
 
-.status-pending {
-  background-color: #e0e9ff;
-  color: #0044b9;
-  border: 1px solid #0044b9;
-}
+  .book-title {
+    font-size: 0.85rem;
+  }
 
-.status-blocked {
-  background-color: #f3e5f5;
-  color: #7b1fa2;
-  border: 1px solid #7b1fa2;
+  .book-author {
+    font-size: 0.75rem;
+  }
+
+  .table-number-large {
+    font-size: 1.1rem;
+  }
 }
 </style>

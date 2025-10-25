@@ -1,0 +1,74 @@
+.content-page {
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.heading-section h1 {
+  margin-left: 20px;
+}
+
+.card-left img.book-cover {
+  width: 200px;
+  height: 320px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+}
+.card-left img.member-profile {
+  width: 200px;
+  height: 240px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.card-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.card-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.module-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.module-detail {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+}
+
+.module-card {
+  display: flex;
+  border-radius: 16px;
+  padding: 40px;
+  gap: 50px;
+  box-sizing: border-box;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.module-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}

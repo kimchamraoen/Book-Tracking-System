@@ -184,7 +184,7 @@ export default {
             <a href="#">Add new Librarian</a>
             <a href="#">See all Librarians</a>
             <a href="#">Update Librarian</a>
-            <a href="#">Manage Schedules</a>
+            <a href="#">Delete Librarian</a>
           </div>
         </div>
       </div>
@@ -210,6 +210,16 @@ export default {
       <div class="header">
         <h2>Librarian List</h2>
         <div class="line"></div>
+        <div class="search-container">
+          <div class="search-bar">
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search librarian by search term"
+            />
+            <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
+          </div>
+        </div>
       </div>
       <div class="librarianlist-section">
         <div class="sort-menu-btn"></div>
@@ -230,153 +240,13 @@ export default {
   overflow: scroll;
 }
 
-.heading-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.heading-section h1 {
-  font-size: 2rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
 .heading-buttons {
   display: flex;
   gap: 10px;
 }
 
-.drop-down {
-  position: relative;
-  display: inline-block;
-}
-
-.btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  font-size: 14px;
-}
-
-.btn1 {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn1:hover {
-  background-color: #0056b3;
-}
-
-.btn2 {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn2:hover {
-  background-color: #1e7e34;
-}
-
-.btn img {
-  width: 16px;
-  height: 16px;
-}
-
-.drop-down-content {
-  display: none;
-  position: absolute;
-  background-color: white;
-  min-width: 200px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-  border-radius: 8px;
-  z-index: 1;
-  top: 100%;
-  right: 0;
-  border: 1px solid #ddd;
-}
-
-.hover-open:hover .drop-down-content {
-  display: block;
-}
-
-.two-col {
-  display: flex;
-  min-width: 400px;
-}
-
-.dd-col {
-  flex: 1;
-}
-
-.dd-col.options {
-  border-right: 1px solid #eee;
-}
-
-.drop-down-content a {
-  color: #333;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.2s ease;
-}
-
-.drop-down-content a:hover,
-.drop-down-content a.active {
-  background-color: #f8f9fa;
-  color: #007bff;
-}
-
-.submenu-section {
-  padding: 8px 0;
-}
-
-.submenu-title {
-  padding: 8px 16px;
-  font-weight: 600;
-  color: #666;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
 .section-block {
   margin-bottom: 30px;
-}
-
-.header {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 20px;
-}
-
-.header h2 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-.line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(to right, #007bff, #28a745);
-  border-radius: 1px;
-}
-
-.each-block {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin-bottom: 20px;
 }
 
 .librarianlist-section {

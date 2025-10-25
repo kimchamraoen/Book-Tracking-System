@@ -61,4 +61,55 @@ export default {
   font-size: 1.2rem;
   font-weight: 600;
 }
+
+.activity-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+}
+
+.profile-avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.username {
+  font-weight: 600;
+  color: #333;
+}
+
+.year-group {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.table-number {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.book-cover {
+  width: 100px;
+  height: 150px;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.time-recorded {
+  font-size: 1.2rem;
+  color: #666;
+  margin-top: 5px;
+}
 </style>

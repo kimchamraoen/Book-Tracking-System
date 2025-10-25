@@ -1,0 +1,33 @@
+/* Search Section */
+.search-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  max-width: 400px;
+  margin: 0;
+}
+.search-bar {
+  display: flex;
+  position: relative;
+  flex: 1;
+  width: 600px;
+}
+.search-bar img {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+.search-bar input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 100%;
+}
+.search-bar input:focus {
+  outline: none;
+  border-color: blue;
+  box-shadow: 0 0 5px rgba(200, 239, 255, 0.5);
+}

@@ -1,14 +1,14 @@
 <script>
 import { ref, onMounted, onUnmounted } from 'vue'
-import BookInfo_Block from './bookInfo_Block.vue'
-import booklistContent from './booklist-content.vue'
+import BorrowingInfo_Block from './borrowingInfo_Block.vue'
+import BorrowingListContent from './borrowing-list-content.vue'
 import { useGlobalSearch } from '@/composables/useGlobalSearch.js'
 
 export default {
-  name: 'ContentBooks',
+  name: 'ContentBorrowing',
   components: {
-    BookInfo_Block,
-    booklistContent,
+    BorrowingInfo_Block,
+    BorrowingListContent,
   },
   setup() {
     const { registerSearchCallback, unregisterSearchCallback } = useGlobalSearch()
@@ -24,72 +24,61 @@ export default {
 
     const overviews = ref([
       {
-        title: 'Total Books',
-        count: 1250,
+        title: 'Total Borrowings',
+        count: 450,
         blockColor: '#AEDFF7',
-        description: 'Number of books in the inventory',
+        description: 'Total number of active borrowings',
       },
       {
-        title: 'Available Books',
-        count: 850,
-        blockColor: '#A3F7B5',
-        description: 'Books currently available for users',
-      },
-      {
-        title: 'Reading Books',
-        count: 300,
+        title: 'Due Today',
+        count: 25,
         blockColor: '#F7C59A',
-        description: 'Books currently being read by users',
+        description: 'Books due for return today',
       },
       {
-        title: 'Borrowed Books',
-        count: 300,
-        blockColor: '#F7C59A',
-        description: 'Books currently Borrowed by users',
-      },
-      {
-        title: 'Reserved Books',
-        count: 300,
-        blockColor: '#F7C59A',
-        description: 'Books currently Reserved by users',
-      },
-      {
-        title: 'Lost/Damaged Books',
-        count: 100,
+        title: 'Overdue Books',
+        count: 12,
         blockColor: '#F7A3A3',
-        description: 'Books currently unavailable for users',
+        description: 'Books past their due date',
+      },
+      {
+        title: 'Extended Loans',
+        count: 35,
+        blockColor: '#E6E6FA',
+        description: 'Loans with extended due dates',
+      },
+      {
+        title: 'Short-term Loans',
+        count: 180,
+        blockColor: '#A3F7B5',
+        description: 'Books borrowed for 7 days or less',
+      },
+      {
+        title: 'Long-term Loans',
+        count: 198,
+        blockColor: '#FFE4B5',
+        description: 'Books borrowed for more than 7 days',
       },
     ])
 
     const options = ref([
-      { label: 'Genre', key: 'genre' },
-      { label: 'Department', key: 'department' },
-      { label: 'Language', key: 'language' },
       { label: 'Status', key: 'status' },
+      { label: 'Member Type', key: 'memberType' },
+      { label: 'Due Date', key: 'dueDate' },
+      { label: 'Loan Period', key: 'loanPeriod' },
     ])
 
     const facets = ref({
-      genre: [
-        'Fiction',
-        'Fantasy',
-        'Dystopian',
-        'Sci-Fi',
-        'Romance',
-        'Mystery',
-        'Biography',
-        'History',
-        'Children',
-        'Horror',
-      ],
-      department: ['GIC', 'GCA', 'GAR', 'GCI'],
-      language: ['English', 'French', 'Spanish', 'German', 'Khmer'],
-      status: ['Available', 'Checked Out', 'Reserved', 'Reading', 'Lost'],
+      status: ['Active', 'Overdue', 'Due Today', 'Extended', 'Renewed'],
+      memberType: ['Student', 'Faculty', 'Staff', 'Guest', 'Researcher'],
+      dueDate: ['Today', 'This Week', 'Next Week', 'This Month', 'Overdue'],
+      loanPeriod: ['1-3 days', '4-7 days', '1-2 weeks', '2-4 weeks', '1+ months'],
     })
 
     // Methods
     const goToDetails = () => {
       // Logic to navigate to detailed view
-      // this.$router.push({ name: 'BookDetails', params: { category: title } })
+      // this.$router.push({ name: 'BorrowingDetails', params: { category: title } })
     }
 
     const setSort = (option) => {
@@ -168,12 +157,11 @@ export default {
 </script>
 
 <template>
-  <div class="content-books">
+  <div class="content-borrowing">
     <div class="heading-section">
-      <h1>Overview of Books</h1>
+      <h1>Overview of Borrowing</h1>
       <div class="heading-buttons">
         <div class="drop-down hover-open">
-          <!-- <div class="drop-down hover-open" @mouseleave="isDropdownOpen = false"> -->
           <button class="btn btn1">
             <img src="@/assets/icons/management-logo.svg" alt="" />
             Sort by: {{ sortLabel }}
@@ -226,26 +214,26 @@ export default {
           </div>
         </div>
         <div class="drop-down hover-open">
-          <!-- <div class="drop-down hover-open" @mouseleave="isDropdownOpen = false"> -->
           <button class="btn btn2">
             <img src="@/assets/icons/menu-logo.svg" alt="" />Main Menu
           </button>
           <div class="drop-down-content">
-            <a href="#">Add new Book</a>
-            <a href="#">See all Books</a>
-            <a href="#">Update Book</a>
-            <a href="#">Delete Book</a>
+            <a href="#">New Borrowing</a>
+            <a href="#">View All Borrowings</a>
+            <a href="#">Extend Loan</a>
+            <a href="#">Return Book</a>
+            <a href="#">Overdue Report</a>
           </div>
         </div>
       </div>
     </div>
     <div class="section-block">
       <div class="header">
-        <h2>Inventory Summary</h2>
+        <h2>Borrowing Summary</h2>
         <div class="line"></div>
       </div>
       <div class="each-block">
-        <BookInfo_Block
+        <BorrowingInfo_Block
           v-for="(overall, index) in overviews"
           :key="index"
           :title="overall.title"
@@ -258,18 +246,22 @@ export default {
     </div>
     <div class="section-block">
       <div class="header">
-        <h2>Book List</h2>
+        <h2>Borrowing Records</h2>
         <div class="line"></div>
         <div class="search-container">
           <div class="search-bar">
-            <input v-model="searchQuery" type="text" placeholder="Search book by search term" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search borrowing by a search term"
+            />
             <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
           </div>
         </div>
       </div>
-      <div class="booklist-section">
+      <div class="borrowinglist-section">
         <div class="sort-menu-btn"></div>
-        <booklistContent
+        <BorrowingListContent
           :sortKey="selectedKey"
           :sortOrder="sortOrder"
           :filterValue="selectedValue"
@@ -281,17 +273,16 @@ export default {
 </template>
 
 <style scoped>
-.content-books {
+.content-borrowing {
   width: 100%;
   box-sizing: border-box;
   overflow: scroll;
 }
 
-.booklist-section {
+.borrowinglist-section {
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
-  /* overflow: scroll; */
 }
 
 /* Responsive design */

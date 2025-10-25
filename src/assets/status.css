@@ -1,0 +1,341 @@
+/* ===========================================
+   CENTRALIZED STATUS STYLES FOR BTS PROJECT
+   =========================================== */
+
+/* Base chip styling for statuses and conditions */
+.chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Status chip base */
+.status-chip {
+  padding: 6px 12px;
+  margin: 10px 0;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Librarian status chips */
+.status-chip.active {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #155724;
+}
+
+.status-chip.part-time {
+  background-color: #fff3cd;
+  color: #856404;
+  border: 1px solid #856404;
+}
+
+.status-chip.on-leave {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #721c24;
+}
+
+.status-chip.training {
+  background-color: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #0c5460;
+}
+
+.status-chip.inactive {
+  background-color: #f6f6f6;
+  color: #6c757d;
+  border: 1px solid #6c757d;
+}
+
+/* Status color labels */
+.status {
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.status-active,
+.status-available {
+  background-color: #e7f8ef;
+  color: #1b7c2f;
+  border: 1px solid #1b7c2f;
+}
+
+.status-suspended,
+.status-borrowed {
+  background-color: #fff6e0;
+  color: #b97a00;
+  border: 1px solid #b97a00;
+}
+
+.status-expired,
+.status-lost {
+  background-color: #fdeaea;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+.status-reading {
+  background-color: #fff0e6;
+  color: #c45a00;
+  border: 1px solid #c45a00;
+}
+
+.status-pending,
+.status-reserved {
+  background-color: #e0e9ff;
+  color: #0044b9;
+  border: 1px solid #0044b9;
+}
+
+.status-blocked {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+  border: 1px solid #7b1fa2;
+}
+
+.status-unknown {
+  background-color: #f5f5f5;
+  color: #666;
+  border: 1px solid #666;
+}
+
+/* Return status chips */
+.status-on-time {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-late {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-very-late {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-processed {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+/* Condition chips */
+.condition-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.condition-good {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.condition-fair {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.condition-damaged {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.condition-lost {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.condition-default {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+/* Days late styling */
+.days-on-time {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+.days-slightly-late {
+  color: #f57c00;
+  font-weight: 500;
+}
+
+.days-late {
+  color: #ef6c00;
+  font-weight: 600;
+}
+
+.days-very-late {
+  color: #c62828;
+  font-weight: 700;
+}
+
+/* Fine amount styling */
+.fine-amount {
+  color: #c62828;
+  font-weight: 600;
+}
+
+.no-fine {
+  color: #2e7d32;
+  font-weight: 500;
+}
+
+/* Member status specific styles */
+.status-staff {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-student {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.status-faculty {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-researcher {
+  background-color: #fff8e1;
+  color: #f57c00;
+}
+
+/* Priority indicators */
+.priority-high {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.priority-medium {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.priority-low {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+/* Notification badges */
+.notification-badge {
+  background-color: #d32f2f;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Status indicators for lists */
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+.indicator-active {
+  background-color: #4caf50;
+}
+
+.indicator-inactive {
+  background-color: #f44336;
+}
+
+.indicator-pending {
+  background-color: #ff9800;
+}
+
+.indicator-blocked {
+  background-color: #9c27b0;
+}
+
+/* Progress indicators */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #4caf50;
+  transition: width 0.3s ease;
+}
+
+.progress-fill.warning {
+  background-color: #ff9800;
+}
+
+.progress-fill.danger {
+  background-color: #f44336;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chip,
+  .condition-chip,
+  .status-chip {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+
+  .notification-badge {
+    font-size: 0.6rem;
+    min-width: 16px;
+    height: 16px;
+    padding: 1px 4px;
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    margin-right: 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chip,
+  .condition-chip,
+  .status-chip {
+    font-size: 0.65rem;
+    padding: 2px 6px;
+  }
+
+  .notification-badge {
+    font-size: 0.55rem;
+    min-width: 14px;
+    height: 14px;
+  }
+}

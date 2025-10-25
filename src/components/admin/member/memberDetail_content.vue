@@ -19,27 +19,29 @@
       <button @click="$router.back()" class="back-btn">Go Back</button>
     </div>
 
-    <div v-else class="member-content">
-      <!-- Member Details and Actions Row -->
-      <div class="member-detail">
-        <div class="member-card" style="flex: 1">
-          <div class="member-left">
+    <div v-else class="module-content">
+      <div class="module-detail">
+        <div class="module-card" style="flex: 1">
+          <div class="card-left">
             <img
               :src="member.profileImage || '/src/assets/images/profile-avatar.jpg'"
               alt="Member Profile"
               class="member-profile"
             />
           </div>
-          <div class="member-right">
+          <div class="card-right">
             <div class="member-name">
-              <h1 class="title">{{ member.firstname }} {{ member.lastname }}</h1>
-              <h3>{{ member.id }}</h3>
+              <h1 class="title name">{{ member.firstname }} {{ member.lastname }}</h1>
+              <h3>
+                {{ member.id }} |
+                <span style="font-weight: 500; color: gray">{{ member.role }}</span>
+              </h3>
               <span :class="['status-chip', statusClass]">
                 {{ member.status }}
               </span>
             </div>
 
-            <table class="member-detail-table">
+            <table class="card-detail-table">
               <tbody>
                 <tr>
                   <th><strong>Email:</strong></th>
@@ -70,7 +72,7 @@
           </div>
         </div>
 
-        <div class="member-card actions-div">
+        <div class="actions-div">
           <h2 style="margin: 0">Actions</h2>
           <button
             :disabled="buttonStatesDisabled.activate"
@@ -381,14 +383,6 @@ export default {
   box-sizing: border-box;
 }
 
-.heading-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-  border-bottom: 1px solid #eee;
-}
-
 .loading-container,
 .error-container {
   display: flex;
@@ -397,89 +391,6 @@ export default {
   justify-content: center;
   padding: 40px;
   text-align: center;
-}
-
-.retry-btn,
-.back-btn {
-  margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #c8efff;
-  border: 1px solid #c1c1c1;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 1rem;
-}
-
-.retry-btn:hover,
-.back-btn:hover {
-  background-color: deepskyblue;
-}
-
-.member-content {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 0 20px;
-}
-
-.member-detail {
-  display: flex;
-  gap: 20px;
-}
-
-.member-card {
-  display: flex;
-  border-radius: 16px;
-  padding: 40px;
-  gap: 50px;
-  box-sizing: border-box;
-  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-}
-
-.actions-div {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  height: 100%;
-  padding: 30px 40px;
-  min-width: 200px;
-}
-
-.action-btn {
-  width: 150px;
-  font-size: 16px;
-  padding: 10px 16px;
-  border: none;
-  background-color: #c8efff;
-  border-radius: 6px;
-  border: 1px solid #c1c1c1;
-  cursor: pointer;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
-}
-
-.action-btn:hover:not(:disabled) {
-  background-color: deepskyblue;
-  transform: translateY(-2px);
-}
-
-.action-btn:disabled {
-  background-color: #999;
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.member-left img.member-profile {
-  width: 200px;
-  height: 240px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .member-right {
@@ -499,48 +410,6 @@ export default {
 .title {
   font-size: 2.5rem;
   font-weight: 700;
-}
-
-.status-chip {
-  width: fit-content;
-  display: inline-block;
-  padding: 6px 14px;
-  margin-top: 20px;
-  border-radius: 20px;
-  font-weight: 600;
-  font-size: 14px;
-  text-transform: capitalize;
-  letter-spacing: 0.3px;
-}
-
-.status-active {
-  background-color: #e7f8ef;
-  color: #1b7c2f;
-  border: 1px solid #1b7c2f;
-}
-
-.status-suspended {
-  background-color: #fff6e0;
-  color: #b97a00;
-  border: 1px solid #b97a00;
-}
-
-.status-expired {
-  background-color: #fdeaea;
-  color: #c62828;
-  border: 1px solid #c62828;
-}
-
-.status-pending {
-  background-color: #e0e9ff;
-  color: #0044b9;
-  border: 1px solid #0044b9;
-}
-
-.status-blocked {
-  background-color: #f3e5f5;
-  color: #7b1fa2;
-  border: 1px solid #7b1fa2;
 }
 
 .member-detail-table {
@@ -574,29 +443,6 @@ export default {
   overflow: hidden;
 }
 
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px 30px;
-  background-color: #f8f9fa;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.header h2 {
-  margin: 0;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.line {
-  flex: 1;
-  height: 2px;
-  background: linear-gradient(to right, #8ecae6, #a3cef1);
-  margin-left: 20px;
-}
-
 .activity-carousel {
   display: flex;
   flex-direction: column;
@@ -627,21 +473,29 @@ export default {
   display: flex;
   gap: 15px;
   overflow-x: auto;
+  overflow-y: hidden;
   padding: 10px 0;
+  scroll-behavior: smooth;
 }
 
 .activity-block::-webkit-scrollbar {
-  height: 6px;
+  height: 8px;
 }
 
 .activity-block::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 3px;
+  background-color: #8ecae6;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.activity-block::-webkit-scrollbar-thumb:hover {
+  background-color: #6bb8d8;
 }
 
 .activity-block::-webkit-scrollbar-track {
   background-color: #f0f0f0;
-  border-radius: 3px;
+  border-radius: 4px;
+  margin: 0 10px;
 }
 
 .section-block {
@@ -698,6 +552,10 @@ export default {
   .activity-carousel {
     padding: 15px 20px;
     gap: 20px;
+  }
+
+  .activity-block {
+    gap: 12px;
   }
 }
 </style>

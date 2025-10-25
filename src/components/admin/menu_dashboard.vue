@@ -28,7 +28,7 @@
         </li>
         <li>
           <router-link to="/admin/borrowings"
-            ><img src="@/assets/icons/circulation-logo.svg" alt="" />Borrowings</router-link
+            ><img src="@/assets/icons/circulation-logo.svg" alt="" />Borrowing</router-link
           >
         </li>
         <li>

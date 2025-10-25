@@ -70,63 +70,73 @@
         <div class="line"></div>
       </div>
       <div class="activity-carousel">
-        <div class="category-header">
-          <h3>Recent Reading Sessions</h3>
+        <div class="activity-block">
+          <div class="category-header">
+            <h3>Recent Reading Sessions</h3>
+          </div>
+          <div class="activity-lists">
+            <DashboardCirculationActivityBlock
+              v-for="(Borrowings, index) in Borrowings"
+              :key="index"
+              :title_activity="'Borrowing'"
+              :title_color="'#8ecae6'"
+              :username="Borrowings.username"
+              :yearGroup="Borrowings.yearGroup"
+              :activity="Borrowings.activity"
+              :timeRecorded="Borrowings.timeRecorded"
+            />
+          </div>
         </div>
         <div class="activity-block">
-          <DashboardCirculationActivityBlock
-            v-for="(Borrowings, index) in Borrowings"
-            :key="index"
-            :title_activity="'Borrowing'"
-            :title_color="'#8ecae6'"
-            :username="Borrowings.username"
-            :yearGroup="Borrowings.yearGroup"
-            :activity="Borrowings.activity"
-            :timeRecorded="Borrowings.timeRecorded"
-          />
-        </div>
-        <div class="category-header">
-          <h3>Recent Reading Sessions</h3>
-        </div>
-        <div class="activity-block">
-          <DashboardCirculationActivityBlock
-            v-for="(Returnings, index) in Returnings"
-            :key="index"
-            :title_activity="'Returning'"
-            :title_color="'#90e0ef'"
-            :username="Returnings.username"
-            :yearGroup="Returnings.yearGroup"
-            :activity="Returnings.activity"
-            :timeRecorded="Returnings.timeRecorded"
-          />
-        </div>
-        <div class="category-header">
-          <h3>Recent Reading Sessions</h3>
+          <div class="category-header">
+            <h3>Recent Reading Sessions</h3>
+          </div>
+
+          <div class="activity-lists">
+            <DashboardCirculationActivityBlock
+              v-for="(Returnings, index) in Returnings"
+              :key="index"
+              :title_activity="'Returning'"
+              :title_color="'#90e0ef'"
+              :username="Returnings.username"
+              :yearGroup="Returnings.yearGroup"
+              :activity="Returnings.activity"
+              :timeRecorded="Returnings.timeRecorded"
+            />
+          </div>
         </div>
         <div class="activity-block">
-          <DashboardCirculationActivityBlock
-            v-for="(Reservings, index) in Reservings"
-            :key="index"
-            :title_activity="'Reserving'"
-            :title_color="'#a3cef1'"
-            :username="Reservings.username"
-            :yearGroup="Reservings.yearGroup"
-            :activity="Reservings.activity"
-            :timeRecorded="Reservings.timeRecorded"
-          />
-        </div>
-        <div class="category-header">
-          <h3>Recent Reading Sessions</h3>
+          <div class="category-header">
+            <h3>Recent Reading Sessions</h3>
+          </div>
+
+          <div class="activity-lists">
+            <DashboardCirculationActivityBlock
+              v-for="(Reservings, index) in Reservings"
+              :key="index"
+              :title_activity="'Reserving'"
+              :title_color="'#a3cef1'"
+              :username="Reservings.username"
+              :yearGroup="Reservings.yearGroup"
+              :activity="Reservings.activity"
+              :timeRecorded="Reservings.timeRecorded"
+            />
+          </div>
         </div>
         <div class="activity-block">
-          <DashboardReadingActivityBlock
-            v-for="(Reading, index) in Readings"
-            :key="index"
-            :username="Reading.username"
-            :yearGroup="Reading.yearGroup"
-            :tableNumber="Reading.tableNumber"
-            :timeRecorded="Reading.timeRecorded"
-          />
+          <div class="category-header">
+            <h3>Recent Reading Sessions</h3>
+          </div>
+          <div class="activity-lists">
+            <DashboardReadingActivityBlock
+              v-for="(Reading, index) in Readings"
+              :key="index"
+              :username="Reading.username"
+              :yearGroup="Reading.yearGroup"
+              :tableNumber="Reading.tableNumber"
+              :timeRecorded="Reading.timeRecorded"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -176,9 +186,9 @@ export default {
           count: 12,
           image: bookCategoryImage,
           blockColor: '#90e0ef',
-          description1: '12 trending',
-          description2: '12 top borrowed',
-          description3: '12 newly added',
+          description1: '12 Trending',
+          description2: '12 Top Borrowed',
+          description3: '12 New',
         },
         {
           title: 'Total Tables',
@@ -451,31 +461,26 @@ export default {
   height: 90vh;
   overflow-x: hidden;
 }
-.search-section {
-  width: 100%;
-  padding: 20px;
-  border: 2px solid #e0e0e0;
-  display: flex;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  width: 100%;
-}
 
 .activity-carousel {
   width: 100%;
   display: flex;
   flex-direction: column;
   padding: 0px 40px;
-  /* gap: 20px; */
 }
+
 .activity-block {
   display: flex;
-  gap: 20px;
+  flex-direction: column;
   width: 100%;
-  overflow-x: auto;
+  gap: 0;
   flex-wrap: nowrap;
   padding-bottom: 10px;
+}
+
+.activity-lists {
+  display: flex;
+  overflow-x: auto;
 }
 
 .category-header {
@@ -492,24 +497,17 @@ export default {
   font-weight: 600;
   color: #444;
 }
+
 .activity-block::-webkit-scrollbar {
   height: 8px;
 }
+
 .activity-block::-webkit-scrollbar-thumb {
   background-color: #ccc;
   border-radius: 10px;
 }
-.activity-block::-webkit-scrollbar-read {
-  background-color: #f0f0f0;
-}
-.activity-block::-webkit-scrollbar {
-  width: 8px;
-}
-.activity-block::-webkit-scrollbar-thumb {
-  background-color: #ccc;
-  border-radius: 10px;
-}
-.activity-block::-webkit-scrollbar-read {
+
+.activity-block::-webkit-scrollbar-track {
   background-color: #f0f0f0;
 }
 </style>

@@ -1,0 +1,373 @@
+/* ===========================================
+   CENTRALIZED TABLE STYLES FOR BTS PROJECT
+   =========================================== */
+
+/* Container for table lists */
+.table-list-container {
+  overflow-x: auto;
+}
+
+.card-detail-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #808080;
+}
+.card-detail-table td {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  color: #555;
+  vertical-align: middle;
+}
+
+.card-detail-table th {
+  background-color: #c8efff;
+  border: 1px solid #ccc;
+  text-align: left;
+  padding: 10px 16px;
+  color: #333;
+  width: 200px;
+}
+
+/* Base table styling */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 10px 40px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  background-color: white;
+}
+
+/* Table header styling */
+.data-table th {
+  background-color: #c8efff;
+  border: 1px solid #ccc;
+  white-space: nowrap;
+  font-weight: 800;
+  text-align: center;
+  padding: 10px;
+  color: #333;
+}
+
+/* Table cell styling */
+.data-table td {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  color: #555;
+  vertical-align: middle;
+}
+
+/* Table row styling */
+.data-table tr {
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* Zebra striping for table rows */
+.data-table tbody tr:nth-child(even) {
+  background-color: #f1f8ff;
+}
+
+/* Hover effect for table rows */
+.data-table tbody tr:hover {
+  background-color: #cee6ff;
+}
+
+/* Text truncation for long content */
+.truncate {
+  max-width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Small truncate for narrow columns */
+.truncate-sm {
+  max-width: 120px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Image styling for tables */
+.table-image {
+  width: 50px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+/* Avatar styling (circular images) */
+.table-avatar {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+}
+
+/* Status chip styling */
+.status-chip {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+/* Status chip variations */
+.status-active {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-inactive {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-pending {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-blocked {
+  background-color: #fce4ec;
+  color: #ad1457;
+}
+
+.status-expired {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.status-overdue {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-extended {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.status-renewed {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-due-today {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-available {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+}
+
+.status-checked-out {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.status-reserved {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.status-reading {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+}
+
+.status-lost {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.status-default {
+  background-color: #f5f5f5;
+  color: #757575;
+}
+
+/* Special text highlighting */
+.days-overdue {
+  color: #c62828;
+  font-weight: bold;
+}
+
+.days-due-today {
+  color: #ef6c00;
+  font-weight: bold;
+}
+
+.days-due-soon {
+  color: #f57c00;
+  font-weight: 500;
+}
+
+.days-normal {
+  color: #2e7d32;
+}
+
+/* Name cell styling for librarian/member tables */
+.name-cell {
+  text-align: left;
+}
+
+.table-name {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.table-id {
+  font-size: 12px;
+  color: #666;
+}
+
+/* Actions cell styling */
+.actions-cell {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-edit {
+  background-color: #fff3e0;
+  color: #ef6c00;
+}
+
+.btn-edit:hover {
+  background-color: #ffe0b2;
+}
+
+.btn-view {
+  background-color: #e3f2fd;
+  color: #1565c0;
+}
+
+.btn-view:hover {
+  background-color: #bbdefb;
+}
+
+/* Loading and error states */
+.table-loading,
+.table-error,
+.table-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+  font-style: italic;
+}
+
+.table-error {
+  color: #d32f2f;
+}
+
+.retry-btn {
+  margin-left: 10px;
+  padding: 5px 10px;
+  border: 1px solid #d32f2f;
+  background: white;
+  color: #d32f2f;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.retry-btn:hover {
+  background-color: #d32f2f;
+  color: white;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .data-table {
+    margin: 10px 20px;
+    font-size: 0.9rem;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .truncate {
+    max-width: 120px;
+  }
+
+  .truncate-sm {
+    max-width: 80px;
+  }
+
+  .table-image {
+    width: 40px;
+    height: 60px;
+  }
+
+  .table-avatar {
+    width: 40px;
+    height: 40px;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .action-btn {
+    font-size: 0.8rem;
+    padding: 4px 6px;
+    min-width: 28px;
+    height: 28px;
+  }
+}
+
+@media (max-width: 480px) {
+  .data-table {
+    margin: 10px 10px;
+    font-size: 0.8rem;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+
+  .truncate {
+    max-width: 100px;
+  }
+
+  .truncate-sm {
+    max-width: 60px;
+  }
+
+  .table-image {
+    width: 35px;
+    height: 50px;
+  }
+
+  .table-avatar {
+    width: 35px;
+    height: 35px;
+  }
+
+  .status-chip {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+  }
+}

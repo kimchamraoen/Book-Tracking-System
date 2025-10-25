@@ -18,14 +18,18 @@ export default {
 </script>
 
 <style scoped>
-.menu-dashboard {
+.admin-overall-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  width: 100%;
+}
+
+.search-section {
   position: sticky;
   top: 0;
   flex-shrink: 0;
-}
-.content-dashboard {
-  flex-grow: 1;
-  width: 100%;
-  overflow-y: auto;
+  z-index: 1000;
 }
 </style>

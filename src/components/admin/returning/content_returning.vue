@@ -1,14 +1,14 @@
 <script>
 import { ref, onMounted, onUnmounted } from 'vue'
-import BookInfo_Block from './bookInfo_Block.vue'
-import booklistContent from './booklist-content.vue'
+import ReturningInfo_Block from './returningInfo_Block.vue'
+import ReturningListContent from './returning-list-content.vue'
 import { useGlobalSearch } from '@/composables/useGlobalSearch.js'
 
 export default {
-  name: 'ContentBooks',
+  name: 'ContentReturning',
   components: {
-    BookInfo_Block,
-    booklistContent,
+    ReturningInfo_Block,
+    ReturningListContent,
   },
   setup() {
     const { registerSearchCallback, unregisterSearchCallback } = useGlobalSearch()
@@ -24,72 +24,61 @@ export default {
 
     const overviews = ref([
       {
-        title: 'Total Books',
+        title: 'Total Returns',
         count: 1250,
         blockColor: '#AEDFF7',
-        description: 'Number of books in the inventory',
+        description: 'Total number of books returned',
       },
       {
-        title: 'Available Books',
-        count: 850,
+        title: 'Today Returns',
+        count: 45,
         blockColor: '#A3F7B5',
-        description: 'Books currently available for users',
+        description: 'Books returned today',
       },
       {
-        title: 'Reading Books',
-        count: 300,
-        blockColor: '#F7C59A',
-        description: 'Books currently being read by users',
-      },
-      {
-        title: 'Borrowed Books',
-        count: 300,
-        blockColor: '#F7C59A',
-        description: 'Books currently Borrowed by users',
-      },
-      {
-        title: 'Reserved Books',
-        count: 300,
-        blockColor: '#F7C59A',
-        description: 'Books currently Reserved by users',
-      },
-      {
-        title: 'Lost/Damaged Books',
-        count: 100,
+        title: 'Late Returns',
+        count: 18,
         blockColor: '#F7A3A3',
-        description: 'Books currently unavailable for users',
+        description: 'Books returned after due date',
+      },
+      {
+        title: 'Damaged Returns',
+        count: 8,
+        blockColor: '#F7C59A',
+        description: 'Books returned with damage',
+      },
+      {
+        title: 'On-time Returns',
+        count: 1184,
+        blockColor: '#E6E6FA',
+        description: 'Books returned on or before due date',
+      },
+      {
+        title: 'This Week',
+        count: 287,
+        blockColor: '#FFE4B5',
+        description: 'Books returned this week',
       },
     ])
 
     const options = ref([
-      { label: 'Genre', key: 'genre' },
-      { label: 'Department', key: 'department' },
-      { label: 'Language', key: 'language' },
-      { label: 'Status', key: 'status' },
+      { label: 'Return Status', key: 'returnStatus' },
+      { label: 'Return Date', key: 'returnDate' },
+      { label: 'Member Type', key: 'memberType' },
+      { label: 'Condition', key: 'condition' },
     ])
 
     const facets = ref({
-      genre: [
-        'Fiction',
-        'Fantasy',
-        'Dystopian',
-        'Sci-Fi',
-        'Romance',
-        'Mystery',
-        'Biography',
-        'History',
-        'Children',
-        'Horror',
-      ],
-      department: ['GIC', 'GCA', 'GAR', 'GCI'],
-      language: ['English', 'French', 'Spanish', 'German', 'Khmer'],
-      status: ['Available', 'Checked Out', 'Reserved', 'Reading', 'Lost'],
+      returnStatus: ['On Time', 'Late', 'Very Late', 'Overdue'],
+      returnDate: ['Today', 'Yesterday', 'This Week', 'Last Week', 'This Month'],
+      memberType: ['Student', 'Faculty', 'Staff', 'Guest', 'Researcher'],
+      condition: ['Good', 'Fair', 'Damaged', 'Lost'],
     })
 
     // Methods
     const goToDetails = () => {
       // Logic to navigate to detailed view
-      // this.$router.push({ name: 'BookDetails', params: { category: title } })
+      // this.$router.push({ name: 'ReturningDetails', params: { category: title } })
     }
 
     const setSort = (option) => {
@@ -168,12 +157,11 @@ export default {
 </script>
 
 <template>
-  <div class="content-books">
+  <div class="content-returning">
     <div class="heading-section">
-      <h1>Overview of Books</h1>
+      <h1>Overview of Returning</h1>
       <div class="heading-buttons">
         <div class="drop-down hover-open">
-          <!-- <div class="drop-down hover-open" @mouseleave="isDropdownOpen = false"> -->
           <button class="btn btn1">
             <img src="@/assets/icons/management-logo.svg" alt="" />
             Sort by: {{ sortLabel }}
@@ -226,26 +214,26 @@ export default {
           </div>
         </div>
         <div class="drop-down hover-open">
-          <!-- <div class="drop-down hover-open" @mouseleave="isDropdownOpen = false"> -->
           <button class="btn btn2">
             <img src="@/assets/icons/menu-logo.svg" alt="" />Main Menu
           </button>
           <div class="drop-down-content">
-            <a href="#">Add new Book</a>
-            <a href="#">See all Books</a>
-            <a href="#">Update Book</a>
-            <a href="#">Delete Book</a>
+            <a href="#">Process Return</a>
+            <a href="#">View All Returns</a>
+            <a href="#">Late Returns Report</a>
+            <a href="#">Damaged Books Report</a>
+            <a href="#">Return Statistics</a>
           </div>
         </div>
       </div>
     </div>
     <div class="section-block">
       <div class="header">
-        <h2>Inventory Summary</h2>
+        <h2>Returning Summary</h2>
         <div class="line"></div>
       </div>
       <div class="each-block">
-        <BookInfo_Block
+        <ReturningInfo_Block
           v-for="(overall, index) in overviews"
           :key="index"
           :title="overall.title"
@@ -258,18 +246,22 @@ export default {
     </div>
     <div class="section-block">
       <div class="header">
-        <h2>Book List</h2>
+        <h2>Return Records</h2>
         <div class="line"></div>
         <div class="search-container">
           <div class="search-bar">
-            <input v-model="searchQuery" type="text" placeholder="Search book by search term" />
+            <input
+              v-model="searchQuery"
+              type="text"
+              placeholder="Search returns by a search term"
+            />
             <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
           </div>
         </div>
       </div>
-      <div class="booklist-section">
+      <div class="returninglist-section">
         <div class="sort-menu-btn"></div>
-        <booklistContent
+        <ReturningListContent
           :sortKey="selectedKey"
           :sortOrder="sortOrder"
           :filterValue="selectedValue"
@@ -281,17 +273,16 @@ export default {
 </template>
 
 <style scoped>
-.content-books {
+.content-returning {
   width: 100%;
   box-sizing: border-box;
   overflow: scroll;
 }
 
-.booklist-section {
+.returninglist-section {
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
-  /* overflow: scroll; */
 }
 
 /* Responsive design */

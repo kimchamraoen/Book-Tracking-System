@@ -1,0 +1,307 @@
+.heading-buttons {
+  display: flex;
+  gap: 10px;
+  position: fixed;
+  top: 10; /* distance from top before it sticks */
+  right: 35px; /* distance from right before it sticks */
+  z-index: 1000;
+  padding: 10px 0;
+}
+
+.drop-down {
+  position: relative;
+  display: inline-block;
+}
+.drop-down-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fff;
+  min-width: 220px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.drop-down-content.two-col {
+  display: none;
+  flex-wrap: nowrap;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  gap: 8px;
+  min-width: 350px;
+  max-height: 340px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  z-index: 3000; /* <<< higher than Main Menu */
+}
+
+.hover-open:hover > .drop-down-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 1000;
+}
+.hover-open:hover > .drop-down-content.two-col {
+  display: flex;
+  opacity: 1;
+  transform: translateY(0);
+  z-index: 1000;
+}
+
+.dd-col {
+  padding: 8px 0;
+}
+.dd-col.options {
+  min-width: 150px;
+  border-right: 1px solid #f1f1f1;
+  max-height: 340px;
+  overflow: auto;
+}
+.dd-col.panel {
+  min-width: 180px;
+  max-width: 380px;
+  max-height: 340px;
+  overflow: auto;
+}
+
+.submenu-section {
+  padding: 6px 0;
+}
+.submenu-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #666;
+  padding: 6px 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.drop-down-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s ease;
+  background-color: #fff;
+}
+.drop-down-content a:hover {
+  background-color: #c8efff;
+}
+
+.drop-down-content a.active {
+  background-color: #c8efff;
+}
+
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  border: 1px solid #ccc;
+  transition: background-color 0.3s ease;
+}
+.btn:active {
+  transform: translateY(2px);
+}
+.btn img {
+  width: 15px;
+  margin-right: 10px;
+}
+.btn1 {
+  background-color: #fff;
+}
+.btn2 {
+  background-color: #c8efff;
+}
+
+.logout-btn {
+  text-decoration: none;
+  border: none;
+  border-radius: 10px;
+  width: 150px;
+  font-size: 1.5rem;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.logout-btn:hover {
+  background-color: #def7ff;
+}
+
+.action-btn {
+  width: 150px;
+  font-size: 16px;
+  padding: 10px 16px;
+  border: none;
+  background-color: #c8efff;
+  border-radius: 6px;
+  border: 1px solid #c1c1c1;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.2s ease;
+}
+
+.action-btn:hover:not(:disabled) {
+  background-color: deepskyblue;
+  transform: translateY(-2px);
+}
+
+.action-btn:disabled {
+  background-color: #999;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: white;
+}
+
+.edit-btn:hover {
+  background-color: #e0a800;
+}
+
+.view-btn {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.view-btn:hover {
+  background-color: #138496;
+}
+
+.action-btn img {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+}
+
+.action-buttons {
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 60px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+}
+
+/* Action button container for table cells */
+.action-btn {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
+  min-width: 130px;
+}
+
+/* View button styling */
+.btn-view {
+  background-color: #7edfff;
+  border: 1px solid #17a2b8;
+  color: #212529;
+}
+
+.btn-view:hover:not(:disabled) {
+  background-color: deepskyblue;
+  transform: translateY(-1px);
+}
+
+/* Edit button styling */
+.btn-edit {
+  background-color: #bbdefb;
+  color: #212529;
+  border: 1px solid #1565c0;
+}
+
+.btn-edit:hover:not(:disabled) {
+  background-color: aliceblue;
+  transform: translateY(-1px);
+}
+
+/* Disabled state for action buttons */
+.action-buttons:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none;
+}
+
+.btn-extend {
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border: 1px solid #1565c0;
+}
+
+.btn-extend:hover {
+  background-color: #bbdefb;
+}
+
+.btn-return {
+  background-color: #e8f5e8;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.btn-return:hover {
+  background-color: #c8e6c9;
+}
+
+.btn-renew {
+  background-color: #f3e5f5;
+  color: #7b1fa2;
+  border: 1px solid #7b1fa2;
+}
+
+.btn-renew:hover {
+  background-color: #e1bee7;
+}
+
+.btn-delete {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+.btn-delete:hover {
+  background-color: #ffcdd2;
+}
+
+.retry-btn,
+.back-btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #c8efff;
+  border: 1px solid #c1c1c1;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-size: 1rem;
+}
+
+.retry-btn:hover,
+.back-btn:hover {
+  background-color: deepskyblue;
+}

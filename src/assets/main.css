@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Creepster&family=Parkinsans:wght@300..800&family=Tilt+Warp&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import './table.css';
+@import './button.css';
+@import './div.css';
+@import './layout.css';
+@import './cards.css';
+@import './status.css';
+@import './utilities.css';
 
 * {
   box-sizing: border-box;
@@ -68,25 +75,6 @@
   margin-top: 5px;
 }
 
-.heading-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 20px;
-}
-.heading-section h1 {
-  margin-left: 20px;
-}
-.heading-buttons {
-  display: flex;
-  gap: 10px;
-  position: fixed;
-  top: 10; /* distance from top before it sticks */
-  right: 35px; /* distance from right before it sticks */
-  z-index: 1000;
-  padding: 10px 0;
-}
-
 .section-block {
   display: flex;
   flex-direction: column;
@@ -105,6 +93,7 @@
   display: flex;
   align-items: center;
   padding: 10px 40px 0 40px;
+  gap: 20px;
 }
 
 .header h2 {
@@ -120,14 +109,60 @@
   background-color: #ccc; /* color of line */
 }
 .each-block {
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
   padding: 20px 40px;
-  /* height: 100%; */
-  /* margin: 0 20px 20px 20px; */
-  /* box-sizing: border-box; */
-  /* background-color: yellowgreen; */
+  justify-content: space-between;
+  align-items: stretch;
+  overflow-x: auto;
+}
+
+/* Ensure info blocks have equal width and take full height */
+.each-block .info-block {
+  flex: 1;
+  width: 100%;
+  min-width: 200px;
+  max-width: none;
+  height: 100%;
+  min-height: 220px;
+}
+
+/* Responsive flex adjustments */
+@media (max-width: 1200px) {
+  .each-block {
+    gap: 12px;
+    padding: 15px 30px;
+  }
+
+  .each-block .info-block {
+    min-width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .each-block {
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  .each-block .info-block {
+    min-height: 200px;
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 600px) {
+  .each-block {
+    flex-direction: column;
+    gap: 15px;
+    padding: 10px 15px;
+  }
+
+  .each-block .info-block {
+    min-width: unset;
+    width: 100%;
+  }
 }
 
 .main_container {
@@ -156,120 +191,8 @@ h2 {
   color: #333;
   margin-bottom: 10px;
 }
-
-.drop-down {
-  position: relative;
-  display: inline-block;
-}
-.drop-down-content {
-  display: none;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  background: #fff;
-  min-width: 220px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  overflow: hidden;
-}
-.drop-down-content.two-col {
-  display: none;
-  flex-wrap: nowrap;
-  position: absolute;
-  top: 100%;
-  left: 0;
-  gap: 8px;
-  min-width: 350px;
-  max-height: 340px;
-  overflow: hidden;
-  background: #fff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 8px;
-  z-index: 3000; /* <<< higher than Main Menu */
-}
-
-.hover-open:hover > .drop-down-content {
-  display: block;
-  opacity: 1;
-  transform: translateY(0);
-  z-index: 1000;
-}
-.hover-open:hover > .drop-down-content.two-col {
-  display: flex;
-  opacity: 1;
-  transform: translateY(0);
-  z-index: 1000;
-}
-
-.dd-col {
-  padding: 8px 0;
-}
-.dd-col.options {
-  min-width: 150px;
-  border-right: 1px solid #f1f1f1;
-  max-height: 340px;
-  overflow: auto;
-}
-.dd-col.panel {
-  min-width: 180px;
-  max-width: 380px;
-  max-height: 340px;
-  overflow: auto;
-}
-
-.submenu-section {
-  padding: 6px 0;
-}
-.submenu-title {
-  font-size: 12px;
-  font-weight: 700;
-  color: #666;
-  padding: 6px 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.02em;
-}
-
-.drop-down-content a {
-  color: black;
-  padding: 12px 16px;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.2s ease;
-  background-color: #fff;
-}
-.drop-down-content a:hover {
-  background-color: #c8efff;
-}
-
-.drop-down-content a.active {
-  background-color: #c8efff;
-}
-
-.btn {
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 600;
-  border: 1px solid #ccc;
-  transition: background-color 0.3s ease;
-}
-.btn:active {
-  transform: translateY(2px);
-}
-.btn img {
-  width: 15px;
-  margin-right: 10px;
-}
-.btn1 {
-  background-color: #fff;
-}
-.btn2 {
-  background-color: #c8efff;
+h3 {
+  margin: 10px 0;
 }
 
 .title-div {
@@ -278,23 +201,6 @@ h2 {
   justify-content: center;
   /* width: 100%; */
   flex: 1;
-}
-
-.logout-btn {
-  text-decoration: none;
-  border: none;
-  border-radius: 10px;
-  width: 150px;
-  font-size: 1.5rem;
-  padding: 10px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.logout-btn:hover {
-  background-color: #def7ff;
 }
 
 .form-grid {
@@ -452,4 +358,273 @@ label {
 .colored-functioned-btn:hover {
   background-color: darkblue;
   color: white;
+}
+
+.info-block {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: aliceblue;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  overflow: hidden;
+  min-height: 200px;
+}
+
+.info-block:active {
+  transform: translateY(2px);
+}
+
+.info-block:hover {
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-1px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* Title styling - consistent across all info blocks */
+.title {
+  width: 100%;
+  padding: 12px 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  margin: 0;
+}
+
+/* Main content area for dashboard blocks with images */
+.info-block .info {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  min-height: 160px;
+}
+
+.info-block .info img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+}
+
+/* Content info area for simple blocks without images */
+/* .info-block .trending-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 20px;
+  min-height: 120px;
+} */
+
+/* Count styling */
+.info-block .count {
+  font-size: 3rem;
+  font-weight: 700;
+  color: #000;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+
+/* Description container */
+.info-block .description-div {
+  margin-top: 8px;
+  text-align: center;
+  max-width: 100%;
+  padding: 0 5px;
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Individual description styling */
+.info-block .description {
+  display: inline-block;
+  font-size: 1rem;
+  color: #666;
+  margin: 2px 4px;
+  padding: 4px 8px;
+  border-radius: 12px;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Multi-description layout for dashboard blocks */
+.info-block .description-div:has(.description:nth-child(2)) {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 4px;
+  width: 100%;
+  min-height: 60px;
+}
+
+.info-block .description-div:has(.description:nth-child(2)) .description {
+  display: inline-block;
+  margin: 0;
+  text-align: center;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: visible;
+  flex: 0 1 auto;
+  min-width: fit-content;
+  font-size: 1rem;
+  padding: 2px 6px;
+  max-width: 120px;
+}
+
+/* Single description layout for regular blocks */
+.info-block .description-div:not(:has(.description:nth-child(2))) .description {
+  font-size: 1rem;
+  padding: 4px 10px;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow: visible;
+  max-width: 100%;
+  line-height: 1.4;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .info-block .count {
+    font-size: 2rem;
+  }
+
+  .info-block .title {
+    font-size: 1.1rem;
+    padding: 10px 8px;
+  }
+
+  .info-block .description {
+    font-size: 0.8rem;
+    padding: 2px 6px;
+  }
+
+  .info-block .info {
+    padding: 10px 15px;
+  }
+
+  .info-block .trending-info {
+    padding: 15px 10px;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .info-block {
+    min-height: 180px;
+  }
+
+  .info-block .count {
+    font-size: 1.8rem;
+  }
+
+  .info-block .title {
+    font-size: 1rem;
+  }
+
+  .info-block .description {
+    font-size: 0.75rem;
+  }
+}
+
+.circulation-block {
+  border-radius: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  background-color: aliceblue;
+  margin: 10px;
+  width: 250px;
+}
+
+.circulation-block:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.icon {
+  width: 50px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+.book-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0;
+  padding: 0 5px;
+  min-height: 80px;
+  justify-content: center;
+}
+
+.book-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #333;
+  margin-bottom: 4px;
+  text-align: center;
+  line-height: 1.3;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.book-author {
+  font-size: 0.85rem;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 6px;
+  text-align: center;
+  line-height: 1.2;
+  max-width: 100%;
+  word-wrap: break-word;
+}
+
+.activity {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.name {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.actions-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  height: 100%;
+  padding: 30px 40px;
+  min-width: 200px;
+  background-color: #fff;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+}
+
+.actions-div h2 {
+  color: #333;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #007bff;
 }

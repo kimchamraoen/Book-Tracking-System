@@ -2,8 +2,8 @@
   <div class="info-block">
     <span class="title" :style="{ backgroundColor: blockColor }">{{ title }}</span>
     <div class="info">
-      <img :src="image" :alt="title" />
       <div class="trending-info">
+        <img :src="image" :alt="title" />
         <span class="count">{{ count }}</span>
         <div class="description-div">
           <span class="description"> {{ description1 }}</span>
@@ -64,58 +64,59 @@ export default {
   background-color: #fff;
   box-shadow: 3px 5px 5px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  /* background-color: aqua; */
 }
+
 .info-block:active {
   transform: translateY(2px);
 }
+
 .info-block img {
   width: 100px;
 }
+
 .info {
   height: 200px;
-  /* height: 100%; */
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  padding: 0 20px 10px 0;
-  background-color: aliceblue;
+  justify-content: center;
+  padding-bottom: 30px;
+  box-sizing: border-box;
 }
+
 .title {
-  border-radius: 10px 10px 0px 0;
-  text-align: center;
-  padding: 20px;
-  font-weight: 400;
-  font-size: 1.3rem;
   width: 100%;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
 }
+
+.trending-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px 0px 20px;
+}
+
 .count {
-  text-align: center;
-  width: 100%;
+  font-size: 2.5rem;
   font-weight: 700;
-  font-size: 2rem;
+  color: #000;
 }
+
+.description-div {
+  margin-top: 10px;
+  text-align: center;
+}
+
 .description {
-  text-align: left;
-  width: 100%;
-  font-weight: 400;
+  display: block;
   font-size: 0.9rem;
   color: #666;
-}
-.trending-info {
-  height: 70%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  /* background-color: yellow; */
-}
-.description-div {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  margin-top: 15px;
-  /* background-color: tomato; */
+  margin: 2px 0;
 }
 </style>

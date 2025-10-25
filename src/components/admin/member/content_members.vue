@@ -57,7 +57,7 @@ export default {
         title: 'Guest Members',
         count: 85,
         blockColor: '#F7C59A',
-        description: 'Members from the outside of the institute',
+        description: 'Outsiders of the institute',
       },
     ])
 
@@ -260,6 +260,12 @@ export default {
       <div class="header">
         <h2>Member List</h2>
         <div class="line"></div>
+        <div class="search-container">
+          <div class="search-bar">
+            <input v-model="searchQuery" type="text" placeholder="Search member by search term" />
+            <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
+          </div>
+        </div>
       </div>
       <div class="memberlist-section">
         <div class="sort-menu-btn"></div>
@@ -280,16 +286,30 @@ export default {
   box-sizing: border-box;
   overflow: scroll;
 }
-.heading-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
+
 .memberlist-section {
   margin-top: 20px;
   width: 100%;
   box-sizing: border-box;
   /* overflow: scroll; */
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .search-container {
+    width: 100%;
+    max-width: none;
+    margin: 0;
+  }
+
+  .line {
+    width: 100%;
+  }
 }
 </style>

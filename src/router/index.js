@@ -9,17 +9,15 @@ const MemberDetails = () => import('../components/admin/member/memberDetail_cont
 const MembersContent = () => import('../components/admin/member/content_members.vue')
 const Librarians = () => import('../pages/admin/librarians.vue')
 const LibrariansContent = () => import('../components/admin/librarian/content_librarians.vue')
+const LibrarianDetails = () => import('../components/admin/librarian/librarianDetail_content.vue')
 
-// TODO: Add these imports when the files are created
-// const Borrowing = () => import('../pages/admin/borrowing.vue')
-// const BorrowingContent = () => import('../components/admin/borrowing/content_borrowing.vue')
-// const BorrowingDetails = () => import('../components/admin/borrowing/borrowingDetail_content.vue')
-// const Returning = () => import('../pages/admin/returning.vue')
-// const ReturningContent = () => import('../components/admin/returning/content_returning.vue')
-// const Reserving = () => import('../pages/admin/reserving.vue')
-// const ReservingContent = () => import('../components/admin/reserving/content_reserving.vue')
-// const Reading = () => import('../pages/admin/reading.vue')
-// const ReadingContent = () => import('../components/admin/reading/content_reading.vue')
+const Borrowing = () => import('../pages/admin/borrowing.vue')
+const BorrowingContent = () => import('../components/admin/borrowing/content_borrowing.vue')
+const BorrowingDetails = () => import('../components/admin/borrowing/borrowingDetail_content.vue')
+
+const Returning = () => import('../pages/admin/returning.vue')
+const ReturningContent = () => import('../components/admin/returning/content_returning.vue')
+const ReturningDetails = () => import('../components/admin/returning/returningDetail_content.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -89,30 +87,57 @@ const router = createRouter({
           component: LibrariansContent,
           meta: { title: 'BTS - Librarians Overview' },
         },
+        {
+          path: ':id',
+          name: 'LibrarianDetails',
+          component: LibrarianDetails,
+          props: true,
+          meta: { title: 'BTS - Librarian Details' },
+        },
       ],
     },
-    // TODO: Add these routes when the files are created
-    // {
-    //   path: '/admin/borrowing',
-    //   name: 'AdminBorrowing',
-    //   component: Borrowing,
-    //   meta: { title: 'BTS - Borrowing' },
-    //   children: [
-    //     {
-    //       path: '',
-    //       name: 'BorrowingContent',
-    //       component: BorrowingContent,
-    //       meta: { title: 'BTS - Borrowing Overview' },
-    //     },
-    //     {
-    //       path: ':id',
-    //       name: 'BorrowingDetails',
-    //       component: BorrowingDetails,
-    //       props: true,
-    //       meta: { title: 'BTS - Borrowing Details' },
-    //     },
-    //   ],
-    // },
+    {
+      path: '/admin/borrowings',
+      name: 'AdminBorrowing',
+      component: Borrowing,
+      meta: { title: 'BTS - Borrowing' },
+      children: [
+        {
+          path: '',
+          name: 'BorrowingContent',
+          component: BorrowingContent,
+          meta: { title: 'BTS - Borrowing Overview' },
+        },
+        {
+          path: ':id',
+          name: 'BorrowingDetails',
+          component: BorrowingDetails,
+          props: true,
+          meta: { title: 'BTS - Borrowing Details' },
+        },
+      ],
+    },
+    {
+      path: '/admin/returnings',
+      name: 'AdminReturning',
+      component: Returning,
+      meta: { title: 'BTS - Returning' },
+      children: [
+        {
+          path: '',
+          name: 'ReturningContent',
+          component: ReturningContent,
+          meta: { title: 'BTS - Returning Overview' },
+        },
+        {
+          path: ':id',
+          name: 'ReturningDetails',
+          component: ReturningDetails,
+          props: true,
+          meta: { title: 'BTS - Returning Details' },
+        },
+      ],
+    },
   ],
   scrollBehavior() {
     return { top: 0 } // always scroll to top
