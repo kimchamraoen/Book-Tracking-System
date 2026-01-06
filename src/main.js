@@ -1,7 +1,7 @@
-import '@/assets/button.css'
-import '@/assets/main.css'
-import '@/assets/search.css'
-import '@/assets/status.css'
+import './assets/button.css'
+import './assets/main.css'
+import './assets/search.css'
+import './assets/status.css'
 
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'

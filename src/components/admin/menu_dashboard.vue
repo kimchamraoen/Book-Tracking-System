@@ -51,7 +51,7 @@
             ><img src="@/assets/icons/location-logo.svg" alt="" />Tracking</router-link
           >
         </li>
-        <li>
+        <!-- <li>
           <router-link to="/admin/analytics"
             ><img src="@/assets/icons/analytic-logo.svg" alt="" />Analytics</router-link
           >
@@ -60,11 +60,11 @@
           <router-link to="/admin/inbox"
             ><img src="@/assets/icons/inbox-logo.svg" alt="" />Inbox</router-link
           >
-        </li>
+        </li> -->
       </ul>
       <span>PREFERENCES</span>
       <ul>
-        <li>
+        <!-- <li>
           <router-link to="/admin/settings"
             ><img src="@/assets/icons/setting-logo.svg" alt="" />Settings</router-link
           >
@@ -73,7 +73,7 @@
           <router-link to="/admin/help"
             ><img src="@/assets/icons/help-logo.svg" alt="" />Help</router-link
           >
-        </li>
+        </li> -->
         <li>
           <router-link to="/admin/profile"
             ><img src="@/assets/icons/profile-logo.svg" alt="" />Profile</router-link
