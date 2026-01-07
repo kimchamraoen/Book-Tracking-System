@@ -26,37 +26,37 @@ export default {
       {
         title: 'Total Members',
         count: 320,
-        blockColor: '#AEDFF7',
+        blockColor: '#09408f',
         description: 'Total registered library members',
       },
       {
         title: 'Active Members',
         count: 280,
-        blockColor: '#A3F7B5',
+        blockColor: '#4e96fc',
         description: 'Currently active members',
       },
       {
         title: 'Inactive Members',
         count: 15,
-        blockColor: '#F7A3A3',
+        blockColor: '#09408f',
         description: 'Members with Inactive accounts',
       },
       {
         title: 'Faculty Members',
         count: 45,
-        blockColor: '#E6E6FA',
+        blockColor: '#09408f',
         description: 'Professor members',
       },
       {
         title: 'Student Members',
         count: 150,
-        blockColor: '#FFE4B5',
+        blockColor: '#09408f',
         description: 'Student members',
       },
       {
         title: 'Guest Members',
         count: 85,
-        blockColor: '#F7C59A',
+        blockColor: '#09408f',
         description: 'Outsiders of the institute',
       },
     ])

@@ -24,7 +24,7 @@ export default {
     },
     blockColor: {
       type: String,
-      default: '#f0f0f0', // Default color if not provided
+      default: '#09408f', // Default color if not provided
     },
     description: {
       type: String,

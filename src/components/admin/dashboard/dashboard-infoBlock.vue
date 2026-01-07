@@ -33,7 +33,7 @@ export default {
     },
     blockColor: {
       type: String,
-      default: '#f0f0f0', // Default color if not provided
+      default: '#0d3b66', // Default color if not provided
     },
     description1: {
       type: String,
@@ -90,7 +90,7 @@ export default {
   padding: 10px;
   font-size: 1.2rem;
   font-weight: 600;
-  color: #333;
+  color: #fdfafa;
   text-align: center;
   border-radius: 10px 10px 0 0;
 }
