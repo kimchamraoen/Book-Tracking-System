@@ -1,5 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+const Home = () => import('../Auth/firstPage.vue')
+const login = () => import('../Auth/login.vue')
+const register = () => import('../Auth/register.vue')
 const Dashboard = () => import('../pages/admin/dashboard.vue')
 const Books = () => import('../pages/admin/books.vue')
 const BookDetails = () => import('../components/admin/book/bookDetail_content.vue')
@@ -26,8 +29,18 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/admin/dashboard',
-      meta: { title: 'BTS - Dashboard' },
+      component: Home,
+      meta: {  title: 'BTS - Home' },
+    },
+    {
+      path: '/login',
+      component: login,
+      meta: { title: 'BTS - Login' },
+    },
+     {
+      path: '/register',
+      component: register,
+      meta: { title: 'BTS - Register' },
     },
     {
       path: '/admin/dashboard',

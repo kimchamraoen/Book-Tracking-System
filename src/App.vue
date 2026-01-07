@@ -1,13 +1,12 @@
 <script setup>
 import menu_dashboard from './components/admin/menu_dashboard.vue';
-
 </script>
 
 <template>
-  <div class="system_content">
-    <menu_dashboard/>
+  <!-- <div class="system_content"> -->
+    <!-- <menu_dashboard/> -->
      <router-view />
-  </div>
+  <!-- </div> -->
 </template>
 
 <style scoped>
