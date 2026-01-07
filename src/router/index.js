@@ -22,6 +22,8 @@ const Returning = () => import('../pages/admin/returning.vue')
 const ReturningContent = () => import('../components/admin/returning/content_returning.vue')
 const ReturningDetails = () => import('../components/admin/returning/returningDetail_content.vue')
 
+
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -53,7 +55,7 @@ const router = createRouter({
       meta: { title: 'BTS - Books' },
       children: [
         {
-          path: '', // ✅ default route when visiting /admin/books
+          path: '', // default route when visiting /admin/books
           name: 'BooksContent',
           component: BooksContent,
           meta: { title: 'BTS - Books Overview' },
@@ -74,7 +76,7 @@ const router = createRouter({
       meta: { title: 'BTS - Members' },
       children: [
         {
-          path: '', // ✅ default route when visiting /admin/members
+          path: '', //  default route when visiting /admin/members
           name: 'MembersContent',
           component: MembersContent,
           meta: { title: 'BTS - Members Overview' },
@@ -152,6 +154,7 @@ const router = createRouter({
       ],
     },
   ],
+  
   scrollBehavior() {
     return { top: 0 } // always scroll to top
   },
