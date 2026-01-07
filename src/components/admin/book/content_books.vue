@@ -33,31 +33,31 @@ export default {
         title: 'Available Books',
         count: 850,
         blockColor: '#A3F7B5',
-        description: 'Books currently available for users',
+        description: 'Books available for users',
       },
       {
         title: 'Reading Books',
         count: 300,
         blockColor: '#F7C59A',
-        description: 'Books currently being read by users',
+        description: 'Books being read by users',
       },
       {
         title: 'Borrowed Books',
         count: 300,
         blockColor: '#F7C59A',
-        description: 'Books currently Borrowed by users',
+        description: 'Books Borrowed by users',
       },
       {
         title: 'Reserved Books',
         count: 300,
         blockColor: '#F7C59A',
-        description: 'Books currently Reserved by users',
+        description: 'Books Reserved by users',
       },
       {
-        title: 'Lost/Damaged Books',
+        title: 'Lost Books',
         count: 100,
         blockColor: '#F7A3A3',
-        description: 'Books currently unavailable for users',
+        description: 'unavailable Books',
       },
     ])
 
@@ -310,6 +310,11 @@ export default {
 
   .line {
     width: 100%;
+  }
+
+  .each-block{
+    width: fit-content;
+    height: 20rem;
   }
 }
 </style>
