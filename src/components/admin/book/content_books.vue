@@ -26,37 +26,37 @@ export default {
       {
         title: 'Total Books',
         count: 1250,
-        blockColor: '#AEDFF7',
-        description: 'Number of books in the inventory',
+        blockColor: '#3730a3',
+        description: 'Sum of books in the inventory',
       },
       {
         title: 'Available Books',
         count: 850,
-        blockColor: '#A3F7B5',
+        blockColor: '#3730a3',
         description: 'Books available for users',
       },
       {
         title: 'Reading Books',
         count: 300,
-        blockColor: '#F7C59A',
+        blockColor: '#3730a3',
         description: 'Books being read by users',
       },
       {
         title: 'Borrowed Books',
         count: 300,
-        blockColor: '#F7C59A',
+        blockColor: '#3730a3',
         description: 'Books Borrowed by users',
       },
       {
         title: 'Reserved Books',
         count: 300,
-        blockColor: '#F7C59A',
+        blockColor: '#3730a3',
         description: 'Books Reserved by users',
       },
       {
         title: 'Lost Books',
         count: 100,
-        blockColor: '#F7A3A3',
+        blockColor: '#3730a3',
         description: 'unavailable Books',
       },
     ])
@@ -239,10 +239,10 @@ export default {
         </div>
       </div>
     </div>
-    <div class="section-block">
+    <div>
       <div class="header">
         <h2>Inventory Summary</h2>
-        <div class="line"></div>
+        <!-- <div class="line"></div> -->
       </div>
       <div class="each-block">
         <BookInfo_Block
@@ -256,16 +256,36 @@ export default {
         />
       </div>
     </div>
-    <div class="section-block">
+    <div>
       <div class="header">
         <h2>Book List</h2>
         <div class="line"></div>
-        <div class="search-container">
+        <!-- <div class="search-container">
           <div class="search-bar">
             <input v-model="searchQuery" type="text" placeholder="Search book by search term" />
             <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
           </div>
-        </div>
+        </div> -->
+      </div>
+      <div style="display: flex; justify-content: flex-end;margin-right: 50px;" >
+        <div class="add-btn-wrapper">
+        <button
+          @click.stop="addBook(book.id)"
+          class="add-button"
+          title="Add New Book"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 640 640"
+            class="add-icon"
+          >
+            <path
+              fill="currentColor"
+              d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
+            />
+          </svg>
+        </button>
+      </div>
       </div>
       <div class="booklist-section">
         <div class="sort-menu-btn"></div>
@@ -283,7 +303,7 @@ export default {
 <style scoped>
 .content-books {
   width: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   overflow: scroll;
 }
 
@@ -293,6 +313,42 @@ export default {
   box-sizing: border-box;
   /* overflow: scroll; */
 }
+
+.add-btn-wrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.add-button {
+  background: none;
+  border: none;
+  padding: 6px;
+  border-radius: 5px;
+  background-color: #3730a3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* cursor: pointer; */
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.add-button:hover {
+  /* background-color: rgba(28, 12, 130, 0.08); */
+  transform: scale(1.08);
+}
+
+.add-button:active {
+  transform: scale(0.95);
+}
+
+.add-icon {
+  width: 24px;
+  height: 24px;
+  color: #f5f5f8;
+  transition: color 0.15s ease;
+}
+
 
 /* Responsive design */
 @media (max-width: 768px) {
@@ -312,9 +368,5 @@ export default {
     width: 100%;
   }
 
-  .each-block{
-    width: fit-content;
-    height: 20rem;
-  }
 }
 </style>

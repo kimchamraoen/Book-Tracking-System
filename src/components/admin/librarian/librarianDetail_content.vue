@@ -473,6 +473,12 @@ export default {
   min-width: 200px;
 }
 
+  .actions-div button{
+    background-color: #243f92;
+    color: white;
+    font: bold;
+  }
+
 .librarian-left img.librarian-profile {
   width: 200px;
   height: 240px;
@@ -500,10 +506,9 @@ export default {
   font-weight: 700;
 }
 
-.librarian-detail-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid #808080;
+.librarian-detail-table tr th{
+  background-color: #243f92;
+  color: white;
 }
 
 .librarian-detail-table td {
@@ -558,12 +563,16 @@ export default {
 }
 
 .activity-block {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 10px 0;
-  scroll-behavior: smooth;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(550px, 1fr);
+  gap: 10px;
+}
+
+.back-btn{
+  background-color: #243f92;
+  color: white;
+  font: bold;
 }
 
 .activity-block::-webkit-scrollbar {

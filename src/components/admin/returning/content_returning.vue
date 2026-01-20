@@ -26,37 +26,37 @@ export default {
       {
         title: 'Total Returns',
         count: 1250,
-        blockColor: '#AEDFF7',
+        blockColor: '#3730a3',
         description: 'Total number of books returned',
       },
       {
         title: 'Today Returns',
         count: 45,
-        blockColor: '#A3F7B5',
+        blockColor: '#3730a3',
         description: 'Books returned today',
       },
       {
         title: 'Late Returns',
         count: 18,
-        blockColor: '#F7A3A3',
+        blockColor: '#3730a3',
         description: 'Books returned after due date',
       },
       {
         title: 'Damaged Returns',
         count: 8,
-        blockColor: '#F7C59A',
+        blockColor: '#3730a3',
         description: 'Books returned with damage',
       },
       {
         title: 'On-time Returns',
         count: 1184,
-        blockColor: '#E6E6FA',
-        description: 'Books returned on or before due date',
+        blockColor: '#3730a3',
+        description: 'Books returned',
       },
       {
         title: 'This Week',
         count: 287,
-        blockColor: '#FFE4B5',
+        blockColor: '#3730a3',
         description: 'Books returned this week',
       },
     ])
@@ -227,10 +227,10 @@ export default {
         </div>
       </div>
     </div>
-    <div class="section-block">
+    <div>
       <div class="header">
         <h2>Returning Summary</h2>
-        <div class="line"></div>
+        <!-- <div class="line"></div> -->
       </div>
       <div class="each-block">
         <ReturningInfo_Block
@@ -244,11 +244,11 @@ export default {
         />
       </div>
     </div>
-    <div class="section-block">
+    <div>
       <div class="header">
         <h2>Return Records</h2>
         <div class="line"></div>
-        <div class="search-container">
+        <!-- <div class="search-container">
           <div class="search-bar">
             <input
               v-model="searchQuery"
@@ -257,7 +257,7 @@ export default {
             />
             <img src="@/assets/icons/search-logo.svg" alt="Search" width="20" />
           </div>
-        </div>
+        </div> -->
       </div>
       <div class="returninglist-section">
         <div class="sort-menu-btn"></div>

@@ -1,7 +1,7 @@
 <template>
-  <div class="content-page">
+  <div class="content-book">
     <div class="heading-section">
-      <h1>Book Details</h1>
+      <h1>Librarian Details</h1>
       <button class="back-btn" @click="$router.back()">Back</button>
     </div>
 
@@ -19,9 +19,9 @@
       <button @click="$router.back()" class="back-btn">Go Back</button>
     </div>
 
-    <div v-else class="module-content">
+    <div v-else class="content">
       <div class="module-detail">
-        <div class="module-card" style="flex: 1">
+        <div class="module-card" style="flex: 1;">
           <div class="card-left">
             <img
               :src="book.coverImage || '/src/assets/images/atomic-habit.jpg'"
@@ -122,7 +122,7 @@
       </div>
 
       <!-- Similar Books Grid -->
-      <div v-if="book" class="section-block">
+      <div v-if="book" class="block-book-similar">
         <div class="header">
           <h2>Similar Books</h2>
           <div class="line"></div>
@@ -144,7 +144,7 @@
                 <span class="view-details">View Details</span>
               </div>
             </div>
-            <div class="book-grid-info">
+            <div class="books-grid-info">
               <h3 class="grid-book-title">{{ similarBook.title }}</h3>
               <p class="grid-book-author">{{ similarBook.author }}</p>
               <span :class="['grid-status-chip', getStatusClass(similarBook.status)]">
@@ -415,6 +415,20 @@ export default {
 
 <style scoped>
 /* Component-specific styles only - reuse original CSS classes */
+.content-book{
+  width: 100%;
+  overflow: auto;
+  box-sizing: border-box;
+}
+
+.heading-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
 .title {
   font-size: 3rem;
   font-weight: 700;
@@ -426,6 +440,53 @@ export default {
   font-weight: 500;
   margin: 10px 0 10px 0;
   color: #666;
+}
+
+.content{
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.back-btn{
+  background-color: #243f92;
+  color: white;
+  font: bold;
+}
+
+.card-detail-table th{
+  background-color: #243f92;
+  color: white;
+  padding: 10px;
+}
+
+.block-book-similar{
+  width: 100%;
+  display: grid;
+}
+
+ .header {
+    padding: 15px 20px;
+  }
+
+  .actions-div button{
+    background-color: #243f92;
+    color: white;
+    font: bold;
+  }
+
+  .books-grid-info{
+    background-color: #243f92;
+    padding: 15px;
+  }
+.books-grid-info h3{
+  color: white;
+  font: bold;
+}
+.books-grid-info p{
+  color: white;
 }
 
 @media (max-width: 768px) {

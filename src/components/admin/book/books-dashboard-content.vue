@@ -49,8 +49,8 @@ export default {
         {
           title: 'Total Books',
           count: 1250,
-          blockColor: '#AEDFF7',
-          description: 'Number of books in the inventory',
+          blockColor: '#FFB4A8',
+          description: 'Sum books in the inventory',
         },
         {
           title: 'Available Books',
@@ -122,3 +122,7 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+  
+</style>
