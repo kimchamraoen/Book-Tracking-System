@@ -1,12 +1,12 @@
 <template>
   <div class="returning-page">
     <div class="heading-section">
-      <h1>Return Details</h1>
+      <h1>Reading Details</h1>
       <button class="back-btn" @click="$router.back()">Back</button>
     </div>
 
     <div v-if="loading" class="loading-container">
-      <p>Loading return details...</p>
+      <p>Loading reading details...</p>
     </div>
 
     <div v-else-if="error" class="error-container">
@@ -15,7 +15,7 @@
     </div>
 
     <div v-else-if="!returning" class="error-container">
-      <p>Return record not found</p>
+      <p>Reading record not found</p>
       <button @click="$router.back()" class="back-btn">Go Back</button>
     </div>
 
@@ -24,7 +24,7 @@
         <div class="returning-card" style="flex: 1">
           <div class="returning-header">
             <div class="returning-title">
-              <h1 class="title">Return {{ returning.id }}</h1>
+              <h1 class="title">Read {{ returning.id }}</h1>
               <span :class="['status-chip', statusClass]">
                 {{ returning.status }}
               </span>
@@ -33,7 +33,7 @@
 
           <div class="returning-details-grid">
             <div class="detail-section">
-              <h3>Returner Information</h3>
+              <h3>Reader Information</h3>
               <table class="member-detail-table">
                 <tbody>
                   <tr>
@@ -73,28 +73,28 @@
             </div>
 
             <div class="detail-section">
-              <h3>Return Information</h3>
+              <h3>Reading Information</h3>
               <table class="member-detail-table">
                 <tbody>
                   <tr>
-                    <th><strong>Borrow Date:</strong></th>
+                    <th><strong>Date:</strong></th>
                     <td>{{ formatDate(returning.borrowDate) }}</td>
                   </tr>
                   <tr>
-                    <th><strong>Due Date:</strong></th>
+                    <th><strong>Start Time:</strong></th>
                     <td>{{ formatDate(returning.dueDate) }}</td>
                   </tr>
                   <tr>
-                    <th><strong>Return Date:</strong></th>
+                    <th><strong>End Time:</strong></th>
                     <td>{{ formatDate(returning.returnDate) }}</td>
                   </tr>
                   <tr>
-                    <th><strong>Days Late:</strong></th>
+                    <th><strong>Overdue:</strong></th>
                     <td :class="daysLateClass">
                       {{ formatDaysLate(returning.daysLate) }}
                     </td>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <th><strong>Condition:</strong></th>
                     <td>
                       <span :class="['condition-chip', conditionClass]">
@@ -105,7 +105,7 @@
                   <tr>
                     <th><strong>Fine Amount:</strong></th>
                     <td :class="fineClass">${{ returning.fineAmount.toFixed(2) }}</td>
-                  </tr>
+                  </tr> -->
                 </tbody>
               </table>
             </div>
@@ -178,24 +178,25 @@ export default {
       if (!this.returning) return ''
 
       const statusMap = {
-        'On Time': 'status-on-time',
-        Late: 'status-late',
-        'Very Late': 'status-very-late',
-        Processed: 'status-processed',
+        'Reading': 'status-reading',
+        'Avaliable': 'status-avaliable',
+        // Late: 'status-late',
+        // 'Very Late': 'status-very-late',
+        // Processed: 'status-processed',
       }
       return statusMap[this.returning.status] || 'status-default'
     },
-    conditionClass() {
-      if (!this.returning) return ''
+    // conditionClass() {
+    //   if (!this.returning) return ''
 
-      const conditionMap = {
-        Good: 'condition-good',
-        Fair: 'condition-fair',
-        Damaged: 'condition-damaged',
-        Lost: 'condition-lost',
-      }
-      return conditionMap[this.returning.condition] || 'condition-default'
-    },
+    //   const conditionMap = {
+    //     Good: 'condition-good',
+    //     Fair: 'condition-fair',
+    //     Damaged: 'condition-damaged',
+    //     Lost: 'condition-lost',
+    //   }
+    //   return conditionMap[this.returning.condition] || 'condition-default'
+    // },
     daysLateClass() {
       if (!this.returning) return ''
 
