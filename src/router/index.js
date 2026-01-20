@@ -22,7 +22,12 @@ const Returning = () => import('../pages/admin/returning.vue')
 const ReturningContent = () => import('../components/admin/returning/content_returning.vue')
 const ReturningDetails = () => import('../components/admin/returning/returningDetail_content.vue')
 
+const Reading = () => import('../pages/admin/reading.vue')
+const ReadingContent = () => import('../components/admin/reading/content_reading.vue')
+const ReadingDetails = () => import('../components/admin/reading/readingDetail_content.vue')
 
+const MemberProfile = () => import('../pages/admin/profile.vue')
+const ProfileContent = () => import('../components/admin/profile/content_profile.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -153,6 +158,41 @@ const router = createRouter({
         },
       ],
     },
+    {
+      path: '/admin/readings',
+      name: 'AdminReading',
+      component: Reading,
+      meta: { title: 'BTS - Reading' },
+      children: [
+        {
+          path: '',
+          name: 'ReadingContent',
+          component: ReadingContent,
+          meta: { title: 'BTS - Reading Overview' },
+        },
+        {
+          path: ':id',
+          name: 'ReadingDetails',
+          component: ReadingDetails,
+          props: true,
+          meta: { title: 'BTS - Reading Details' },
+        },
+      ],
+    },
+    {
+      path: '/admin/profile',
+      name: 'MemberProfile',
+      component: MemberProfile,
+      meta: { title: 'BTS - Profile' },
+      children: [
+        {
+          path: '',
+          name: 'ProfileContent',
+          component: ProfileContent,
+          meta: { title: 'BTS - Profile Overview' },
+        }
+      ]
+    }
   ],
   
   scrollBehavior() {
