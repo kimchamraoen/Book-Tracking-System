@@ -1,24 +1,28 @@
 <template>
-  <div class="circulation-block">
-    <div class="title" :style="{ backgroundColor: titleColor }">
+  <div class="circulation-block" style="width: auto;">
+    <div class="title" :style="{ backgroundColor: titleColor }" style="color: white;">
       {{ activityTitle }}
     </div>
     <div class="activity-list">
-      <img class="book-cover" :src="getActivityImage()" :alt="activityType" />
-      <div class="book-info">
-        <span class="book-title">{{ getMainTitle() }}</span>
-        <span class="book-author">{{ getSubTitle() }}</span>
-        <span :class="['activity', 'status-chip', activityStatusClass]">
-          {{ getActivityStatus() }}
-        </span>
+      <div class="activity-items" style="display: flex;">
+        <img class="book-cover" :src="getActivityImage()" :alt="activityType" style="width: auto; height: 100px;"/>
+        <div class="book-info">
+          <span class="book-title">{{ getMainTitle() }}</span>
+          <span class="book-author">{{ getSubTitle() }}</span>
+          <span :class="['activity', 'status-chip', activityStatusClass]">
+            {{ getActivityStatus() }}
+          </span>
+        </div>
+        <div class="content">
+          <img
+            class="profile-avatar"
+            style="margin-bottom: 10px"
+            :src="librarianAvatar"
+            :alt="librarianName"
+          />
+          <span class="time-recorded">{{ timeRecorded }}</span>
+        </div>
       </div>
-      <img
-        class="profile-avatar"
-        style="margin-bottom: 10px"
-        :src="librarianAvatar"
-        :alt="librarianName"
-      />
-      <span class="time-recorded">{{ timeRecorded }}</span>
     </div>
   </div>
 </template>
@@ -55,9 +59,9 @@ export default {
     },
     titleColor() {
       const colors = {
-        'book-management': '#28a745',
-        'member-assistance': '#007bff',
-        system: '#6f42c1',
+        'book-management': '#243f92',
+        'member-assistance': '#243f92',
+        system: '#243f92',
       }
       return colors[this.activityType]
     },
@@ -142,6 +146,17 @@ export default {
     max-width: 250px;
   }
 
+  .activity-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+
+  .activity-item{
+    display: flex;
+    gap: 1rem;
+  }
+
   .title {
     font-size: 1rem;
     padding: 10px 8px;
@@ -163,6 +178,10 @@ export default {
   .status-chip {
     font-size: 0.75rem;
     padding: 3px 8px;
+  }
+  
+  .title div{
+    color: white;
   }
 }
 

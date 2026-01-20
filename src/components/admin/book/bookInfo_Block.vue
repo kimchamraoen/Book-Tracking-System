@@ -1,10 +1,10 @@
 <template>
-  <div class="info-block">
+  <div class="info-container">
     <span class="title" :style="{ backgroundColor: blockColor }">{{ title }}</span>
     <div class="trending-info">
       <span class="count">{{ count }}</span>
       <div class="description-div">
-        <!-- <span class="description"> {{ description }}</span> -->
+        <span class="description"> {{ description }}</span>
       </div>
     </div>
   </div>
@@ -39,31 +39,30 @@ export default {
     display: grid;
     align-items: center;
     justify-items: center;
-    /* grid-template-columns: auto auto; */
     margin-top: 10px;
+    margin-bottom: 15px;
   }
-  .info-block {
-    width: fit-content;
-    height: 10rem;
-    border: 1px solid #ddd;
+  .info-container {
+    width: 300px;
+    /* height: 10rem; */
+    /* border: 1px solid #ddd; */
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;
-    /* display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; */
+    display: grid;
+    align-items: center;
+    justify-items: center;
   }
   .title {
     display: block;
-    width: 100%;
+    /* width: auto; */
     /* padding: 12px 0; */
     font-size: 16px;
     font-weight: bold;
-    color: #060606;
+    color: #fcfbfb;
     text-align: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    /* border-top-left-radius: 8px;
+    border-top-right-radius: 8px; */
   }
 
   .count {
@@ -73,8 +72,9 @@ export default {
   }
 
   .description {
-    font-size: 16px;
+    font-size: 12px;
     color: #666666;
+    margin-bottom: 1rem;
   }
 
 </style>

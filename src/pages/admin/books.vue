@@ -3,7 +3,7 @@
     <Menu_dashboard />
     <div class="admin-overall-page">
       <searchSection />
-      <transition name="fade" mode="out-in">
+      <transition name="fade" mode="out-in" class="width">
         <router-view />
       </transition>
       <!-- <content_books /> -->
@@ -30,6 +30,9 @@ export default {
   display: flex;
   flex-direction: row;
   height: 100vh;
+}
+.width {
+  width: 10rem;
 }
 
 .router-view {
