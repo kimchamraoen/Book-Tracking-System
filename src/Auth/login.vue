@@ -1,3 +1,33 @@
+<script>
+import { login } from "@/services/AuthService";
+
+export default {
+  data() {
+    return {
+      email: "",
+      password: "",
+      error: "",
+    };
+  },
+  methods: {
+    async handleLogin() {
+      try {
+        const res = await login({
+          email: this.email,
+          password: this.password,
+        });
+        console.log("Login successful:", res);
+
+        // Redirect after login
+        this.$router.push("/dashboard");
+      } catch (_err) {
+        this.error = "Invalid email or password";
+      }
+    },
+  },
+};
+</script>
+
 <template>
   <div class="login-page">
     <!-- Top Bar -->
@@ -16,9 +46,9 @@
         <div class="card-form">
           <h1>Login</h1>
 
-          <form class="login-form">
-            <input type="email" placeholder="Email address" />
-            <input type="password" placeholder="Password" />
+          <form class="login-form" @submit.prevent="handleLogin">
+            <input v-model="email" type="email" placeholder="Email address" />
+            <input v-model="password" type="password" placeholder="Password" />
 
             <button type="submit">Sign In</button>
 
