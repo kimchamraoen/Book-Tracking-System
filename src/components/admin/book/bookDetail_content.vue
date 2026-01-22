@@ -31,7 +31,7 @@
           </div>
           <div class="card-right">
             <div class="card-name">
-              <h1 class="title name">{{ book.title }}</h1>
+              <h1 class="title name" v-if="book.title">{{ book.title }}</h1>
               <h3 class="sub-title" v-if="book.subtitle">{{ book.subtitle }}</h3>
               <span :class="['status-chip', statusClass]">
                 {{ book.status }}
@@ -171,245 +171,28 @@
 import { useBooksStore } from '../../../stores/books.js'
 
 export default {
-  name: 'BookDetail',
-  props: ['id'],
   data() {
     return {
       booksStore: useBooksStore(),
     }
   },
   async created() {
-    await this.booksStore.fetchBookById(this.id)
+    // Get the ID from the URL parameters
+    const bookId = this.$route.params.id;
+    
+    if (bookId) {
+      // Now this function will exist because we added it to the store above
+      await this.booksStore.fetchBookById(bookId);
+    }
   },
   computed: {
     book() {
-      return this.booksStore.selectedBook
+      return this.booksStore.currentBook;
     },
     loading() {
-      return this.booksStore.loading
-    },
-    error() {
-      return this.booksStore.error
-    },
-    buttonStatesDisabled() {
-      if (!this.book) return {}
-      const status = this.book.status?.toLowerCase()
-      switch (status) {
-        case 'available':
-          return {
-            borrow: false,
-            return: true,
-            read: false,
-            finish: true,
-            reserve: false,
-            cancel: true,
-          }
-        case 'borrowed':
-          return {
-            borrow: true,
-            return: false,
-            read: true,
-            finish: true,
-            reserve: true,
-            cancel: true,
-          }
-        case 'reserved':
-          return {
-            borrow: true,
-            return: true,
-            read: true,
-            finish: true,
-            reserve: true,
-            cancel: false,
-          }
-        case 'reading':
-          return {
-            borrow: true,
-            return: true,
-            read: true,
-            finish: false,
-            reserve: true,
-            cancel: true,
-          }
-        case 'lost':
-          return {
-            borrow: true,
-            return: true,
-            read: true,
-            finish: true,
-            reserve: true,
-            cancel: true,
-          }
-        default:
-          return {
-            borrow: true,
-            return: true,
-            read: true,
-            finish: true,
-            reserve: true,
-            cancel: true,
-          }
-      }
-    },
-    statusClass() {
-      if (!this.book || !this.book.status) return ''
-      const status = this.book.status.toLowerCase()
-      switch (status) {
-        case 'available':
-          return 'status-available'
-        case 'borrowed':
-          return 'status-borrowed'
-        case 'reserved':
-          return 'status-reserved'
-        case 'reading':
-          return 'status-reading'
-        case 'lost':
-          return 'status-lost'
-        default:
-          return ''
-      }
-    },
-    similarBooks() {
-      if (!this.book || !this.booksStore.books) return []
-
-      // Filter books that have similar characteristics
-      const similarBooks = this.booksStore.books.filter((otherBook) => {
-        if (otherBook.id === this.book.id) return false
-
-        // Check for similar genre
-        const currentGenres = Array.isArray(this.book.genre) ? this.book.genre : [this.book.genre]
-        const otherGenres = Array.isArray(otherBook.genre) ? otherBook.genre : [otherBook.genre]
-        const hasCommonGenre = currentGenres.some((genre) => otherGenres.includes(genre))
-
-        // Check for same author
-        const sameAuthor = this.book.author === otherBook.author
-
-        // Check for same department
-        const currentDepts = Array.isArray(this.book.department)
-          ? this.book.department
-          : [this.book.department]
-        const otherDepts = Array.isArray(otherBook.department)
-          ? otherBook.department
-          : [otherBook.department]
-        const hasCommonDept = currentDepts.some((dept) => otherDepts.includes(dept))
-
-        // Check for similar language
-        const sameLanguage = this.book.language === otherBook.language
-
-        return hasCommonGenre || sameAuthor || hasCommonDept || sameLanguage
-      })
-
-      // If we have fewer than 3 similar books, add some random ones to fill the grid
-      if (similarBooks.length < 3) {
-        const remainingBooks = this.booksStore.books
-          .filter((book) => book.id !== this.book.id && !similarBooks.find((s) => s.id === book.id))
-          .slice(0, 6 - similarBooks.length)
-
-        similarBooks.push(...remainingBooks)
-      }
-
-      return similarBooks.slice(0, 6) // Limit to 6 books total
-    },
-  },
-  methods: {
-    async handleAction(action) {
-      if (!this.book) return
-      const actionStatusMap = {
-        Borrow: 'Borrowed',
-        Return: 'Available',
-        Read: 'Reading',
-        Finish: 'Available',
-        Reserve: 'Reserved',
-        Cancel: 'Available',
-      }
-      const newStatus = actionStatusMap[action]
-      if (newStatus) {
-        const success = await this.booksStore.updateBookStatus(this.book.id, newStatus)
-        if (success) {
-          alert(`${action} successful! Book status updated to ${newStatus}.`)
-        } else {
-          alert(`Failed to ${action.toLowerCase()} book. Please try again.`)
-        }
-      }
-    },
-    async retryFetch() {
-      this.booksStore.clearError()
-      await this.booksStore.fetchBookById(this.id)
-    },
-    async goToBookDetail(book) {
-      await this.$router.push({ name: 'BookDetails', params: { id: String(book.id) } })
-      // Scroll to top after navigation
-      this.$nextTick(() => {
-        this.scrollToTop()
-      })
-    },
-
-    scrollToTop() {
-      // Try multiple scroll containers to ensure we find the right one
-      const scrollContainers = [
-        document.querySelector('.book-page'),
-        document.querySelector('.admin-overall-page'),
-        document.querySelector('main'),
-        document.querySelector('.main-content'),
-        document.documentElement,
-        document.body,
-      ]
-
-      for (const container of scrollContainers) {
-        if (container) {
-          container.scrollTop = 0
-          container.scrollTo?.({ top: 0, behavior: 'smooth' })
-          break
-        }
-      }
-
-      // Also ensure window scrolls to top
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    },
-
-    getStatusClass(status) {
-      if (!status) return ''
-      const statusLower = status.toLowerCase()
-      switch (statusLower) {
-        case 'available':
-          return 'status-available'
-        case 'borrowed':
-          return 'status-borrowed'
-        case 'reserved':
-          return 'status-reserved'
-        case 'reading':
-          return 'status-reading'
-        case 'lost':
-          return 'status-lost'
-        default:
-          return ''
-      }
-    },
-  },
-  watch: {
-    '$route.params.id': {
-      handler: async function (newId, oldId) {
-        if (newId !== oldId) {
-          this.booksStore.clearError()
-          await this.booksStore.fetchBookById(newId)
-
-          // Wait for DOM update and scroll to top
-          this.$nextTick(() => {
-            setTimeout(() => {
-              this.scrollToTop()
-            }, 100) // small delay to ensure DOM is fully updated
-          })
-        }
-      },
-      immediate: false,
-    },
-  },
-
-  mounted() {
-    this.$nextTick(() => {
-      this.scrollToTop()
-    })
-  },
+      return this.booksStore.loading;
+    }
+  }
 }
 </script>
 

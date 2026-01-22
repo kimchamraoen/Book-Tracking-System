@@ -3,20 +3,14 @@
     <!-- Header -->
     <div class="profile-header">
       <div class="header-left">
-        <img
-          src="https://via.placeholder.com/120"
-          alt="Admin Avatar"
-          class="avatar"
-        />
+        <img src="https://via.placeholder.com/120" alt="Admin Avatar" class="avatar" />
         <div>
           <h2>{{ user.firstName }} {{ user.lastName }}</h2>
           <p>{{ user.role == 'admin' ? 'System Administrator' : user.role }}</p>
         </div>
       </div>
 
-      <button class="primary" @click="showEdit = true">
-        Edit Profile
-      </button>
+      <button class="primary" @click="showEdit = true">Edit Profile</button>
     </div>
 
     <!-- Content -->
@@ -44,9 +38,7 @@
     </div>
 
     <!-- Logout Button (Bottom Right) -->
-    <button class="logout-btn" @click="handleLogout">
-      Logout
-    </button>
+    <button class="logout-btn" @click="handleLogout">Logout</button>
 
     <!-- Edit Profile Modal -->
     <div v-if="showEdit" class="modal-overlay">
@@ -84,12 +76,8 @@
         </div>
 
         <div class="modal-actions">
-          <button class="secondary" @click="showEdit = false">
-            Cancel
-          </button>
-          <button class="primary" @click="saveChanges">
-            Save Changes
-          </button>
+          <button class="secondary" @click="showEdit = false">Cancel</button>
+          <button class="primary" @click="saveChanges">Save Changes</button>
         </div>
       </div>
     </div>
@@ -97,7 +85,7 @@
 </template>
 
 <script>
-import { logout } from "@/services/authservice";
+import { logout } from '@/services/AuthService'
 
 export default {
   data() {
@@ -111,39 +99,39 @@ export default {
         role: '',
         phoneNumber: '',
         department: '',
-        createdAt: ''
-      }
-    };
+        createdAt: '',
+      },
+    }
   },
   mounted() {
     // 1. Get the user data from localStorage that you saved during login
-    const savedUser = localStorage.getItem("user");
+    const savedUser = localStorage.getItem('user')
     if (savedUser) {
-      this.user = JSON.parse(savedUser);
+      this.user = JSON.parse(savedUser)
     } else {
       // If no user found, redirect to login
-      this.$router.push('/login');
+      this.$router.push('/login')
     }
   },
   methods: {
     formatDate(dateString) {
-      if (!dateString) return '';
-      const date = new Date(dateString);
-      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+      if (!dateString) return ''
+      const date = new Date(dateString)
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
     },
     handleLogout() {
-      logout(); // Clears localStorage
-      this.$router.push('/login');
+      logout() // Clears localStorage
+      this.$router.push('/login')
     },
     async saveChanges() {
       // Here you would call an API update function
       // For now, we update localStorage so the changes persist on refresh
-      localStorage.setItem("user", JSON.stringify(this.user));
-      alert("Profile updated locally!");
-      this.showEdit = false;
-    }
-  }
-};
+      localStorage.setItem('user', JSON.stringify(this.user))
+      alert('Profile updated locally!')
+      this.showEdit = false
+    },
+  },
+}
 </script>
 
 <style scoped>
@@ -153,7 +141,7 @@ export default {
   min-height: 100vh;
   background: #f3f4f6;
   padding: 30px;
-  font-family: "Segoe UI", sans-serif;
+  font-family: 'Segoe UI', sans-serif;
   position: relative;
 }
 
@@ -411,5 +399,4 @@ button {
     grid-column: span 1;
   }
 }
-
 </style>
