@@ -24,6 +24,8 @@ export default {
 
     const overviews = ref([
       {
+        width: { type: Number, default: 100 },
+        height: { type: Number, default: 50 },
         title: 'Total Members',
         count: 320,
         blockColor: '#09408f',
@@ -32,7 +34,7 @@ export default {
       {
         title: 'Active Members',
         count: 280,
-        blockColor: '#4e96fc',
+        blockColor: '#09408f',
         description: 'Currently active members',
       },
       {
@@ -253,6 +255,8 @@ export default {
           :image="overall.image"
           :blockColor="overall.blockColor"
           :description="overall.description"
+          :width="100"
+          :height="50"
         />
       </div>
     </div>
@@ -283,7 +287,7 @@ export default {
 <style scoped>
 .content-members {
   width: 100%;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   overflow: scroll;
 }
 

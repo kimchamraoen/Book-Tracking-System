@@ -26,38 +26,38 @@ export default {
       {
         title: 'Total Borrowings',
         count: 450,
-        blockColor: '#AEDFF7',
+        blockColor: '#09408f',
         description: 'Total number of active borrowings',
       },
       {
         title: 'Due Today',
         count: 25,
-        blockColor: '#F7C59A',
+        blockColor: '#09408f',
         description: 'Books due for return today',
       },
       {
         title: 'Overdue Books',
         count: 12,
-        blockColor: '#F7A3A3',
+        blockColor: '#09408f',
         description: 'Books past their due date',
       },
       {
         title: 'Extended Loans',
         count: 35,
-        blockColor: '#E6E6FA',
+        blockColor: '#09408f',
         description: 'Loans with extended due dates',
       },
       {
         title: 'Short-term Loans',
         count: 180,
-        blockColor: '#A3F7B5',
+        blockColor: '#09408f',
         description: 'Books borrowed for 7 days or less',
       },
       {
         title: 'Long-term Loans',
         count: 198,
-        blockColor: '#FFE4B5',
-        description: 'Books borrowed for more than 7 days',
+        blockColor: '#09408f',
+        description: 'Books borrowed more than 7 days',
       },
     ])
 

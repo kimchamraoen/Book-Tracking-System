@@ -145,9 +145,10 @@
   font-size: 16px;
   padding: 10px 16px;
   border: none;
-  background-color: #c8efff;
+  background-color: #1d2dda;
   border-radius: 6px;
   border: 1px solid #c1c1c1;
+  color: #fff;
   cursor: pointer;
   transition:
     background-color 0.3s ease,
@@ -155,7 +156,7 @@
 }
 
 .action-btn:hover:not(:disabled) {
-  background-color: deepskyblue;
+  background-color: rgb(26, 29, 134);
   transform: translateY(-2px);
 }
 
@@ -293,15 +294,16 @@
 .back-btn {
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #c8efff;
+  background-color: #1062ba;
   border: 1px solid #c1c1c1;
   border-radius: 6px;
   cursor: pointer;
+  color: #fff;
   transition: background-color 0.3s ease;
   font-size: 1rem;
 }
 
 .retry-btn:hover,
 .back-btn:hover {
-  background-color: deepskyblue;
+  background-color: rgb(41, 41, 250);
 }

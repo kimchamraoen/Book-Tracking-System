@@ -79,7 +79,7 @@
               v-for="(Borrowings, index) in Borrowings"
               :key="index"
               :title_activity="'Borrowing'"
-              :title_color="'#8ecae6'"
+              :title_color="' #243f92'"
               :username="Borrowings.username"
               :yearGroup="Borrowings.yearGroup"
               :activity="Borrowings.activity"
@@ -97,7 +97,7 @@
               v-for="(Returnings, index) in Returnings"
               :key="index"
               :title_activity="'Returning'"
-              :title_color="'#90e0ef'"
+              :title_color="'  #243f92'"
               :username="Returnings.username"
               :yearGroup="Returnings.yearGroup"
               :activity="Returnings.activity"
@@ -115,7 +115,7 @@
               v-for="(Reservings, index) in Reservings"
               :key="index"
               :title_activity="'Reserving'"
-              :title_color="'#a3cef1'"
+              :title_color="' #243f92'"
               :username="Reservings.username"
               :yearGroup="Reservings.yearGroup"
               :activity="Reservings.activity"
@@ -135,6 +135,8 @@
               :yearGroup="Reading.yearGroup"
               :tableNumber="Reading.tableNumber"
               :timeRecorded="Reading.timeRecorded"
+              title-color= "#243f92"
+              
             />
           </div>
         </div>

@@ -289,5 +289,12 @@ export default {
 </script>
 
 <style scoped>
-/* All table styles are now in centralized table.css */
+button {
+  background: none;
+  border: 1px solid #3730a3;
+}
+tr th{
+  color: aliceblue;
+  background-color: #3730a3;
+}
 </style>
