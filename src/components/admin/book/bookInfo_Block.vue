@@ -77,4 +77,5 @@ export default {
     margin-bottom: 1rem;
   }
 
+
 </style>

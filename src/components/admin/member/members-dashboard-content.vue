@@ -13,6 +13,7 @@
         :image="overall.image"
         :blockColor="overall.blockColor"
         :description="overall.description"
+
       />
     </div>
   </div>

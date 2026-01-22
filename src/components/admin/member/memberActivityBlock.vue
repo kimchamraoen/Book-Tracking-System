@@ -74,9 +74,9 @@ export default {
     },
     titleColor() {
       const colors = {
-        borrowing: '#8ecae6',
-        reservation: '#a3cef1',
-        reading: '#90e0ef',
+        borrowing: '#243f92',
+        reservation: '#243f92',
+        reading: '#243f92',
       }
       return colors[this.activityType]
     },

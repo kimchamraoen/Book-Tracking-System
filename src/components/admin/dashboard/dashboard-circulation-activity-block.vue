@@ -67,9 +67,11 @@ export default {
   flex-direction: column;
   align-items: center;
   border-radius: 10px 10px 0 0;
+  background-color: #243f92;
   padding: 10px;
   font-size: 1.2rem;
   font-weight: 600;
+  color: white;
 }
 
 .activity-list {

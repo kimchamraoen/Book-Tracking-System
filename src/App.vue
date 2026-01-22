@@ -1,5 +1,5 @@
 <script setup>
-import menu_dashboard from './components/admin/menu_dashboard.vue';
+// import menu_dashboard from './components/admin/menu_dashboard.vue';
 </script>
 
 <template>

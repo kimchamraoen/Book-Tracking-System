@@ -458,7 +458,7 @@ export default {
 
 .category-header {
   padding: 10px 0;
-  border-left: 4px solid #8ecae6;
+  border-left: 4px solid #243f92;
   padding-left: 15px;
 }
 
