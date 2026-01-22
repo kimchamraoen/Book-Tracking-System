@@ -15,11 +15,11 @@
         <div class="card-form">
           <h1>Register</h1>
 
-          <form class="login-form">
-            <input type="text" placeholder="Full name" />
-            <input type="email" placeholder="Email address" />
-            <input type="password" placeholder="Password" />
-            <input type="password" placeholder="Confirm password" />
+          <form class="login-form" @submit.prevent="handleRegister">
+            <input v-model="name" type="text" placeholder="Full name" />
+            <input v-model="email" type="email" placeholder="Email address" />
+            <input v-model="password" type="password" placeholder="Password" />
+            <input v-model="password_confirmation" type="password" placeholder="Confirm password" />
 
             <button type="submit">Create Account</button>
 
@@ -33,6 +33,39 @@
     </section>
   </div>
 </template>
+<script>
+import { register } from "@/services/authservice";
+
+export default {
+  data() {
+    return {
+      name: "",
+      email: "",
+      password: "",
+      password_confirmation: "",
+      message: "",
+      error: "",
+    };
+  },
+  methods: {
+    async handleRegister() {
+      try {
+        await register({
+          name: this.name,
+          email: this.email,
+          password: this.password,
+          password_confirmation: this.password_confirmation,
+        });
+
+        this.message = "Registration successful!";
+        this.error = "";
+      } catch (err) {
+        this.error = "Registration failed";
+      }
+    },
+  },
+};
+</script>
 <style scoped>
 /* ====================
    BACKGROUND
