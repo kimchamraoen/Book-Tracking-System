@@ -28,6 +28,8 @@ const ReadingDetails = () => import('../components/admin/reading/readingDetail_c
 
 const MemberProfile = () => import('../pages/admin/profile.vue')
 const ProfileContent = () => import('../components/admin/profile/content_profile.vue')
+const EditBook = () => import('../components/admin/book/editBook.vue')
+const CreateBook = () => import('../components/admin/book/createBook.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,6 +74,19 @@ const router = createRouter({
           props: true,
           meta: { title: 'BTS - Book Details' },
         },
+        {
+          path: 'edit/:id',
+          name: 'EditBook',
+          component: EditBook,
+          props: true,
+          meta: { title: 'BTS - Edit Book' },
+        },
+        {
+          path: 'create',
+          name: 'CreateBook',
+          component: CreateBook,
+          meta: { title: 'BTS - Create Book' },
+        }
       ],
     },
     {

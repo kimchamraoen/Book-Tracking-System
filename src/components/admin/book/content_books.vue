@@ -3,6 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import BookInfo_Block from './bookInfo_Block.vue'
 import booklistContent from './booklist-content.vue'
 import { useGlobalSearch } from '@/composables/useGlobalSearch.js'
+import { useRouter } from 'vue-router'
 
 export default {
   name: 'ContentBooks',
@@ -11,6 +12,7 @@ export default {
     booklistContent,
   },
   setup() {
+    const router = useRouter()
     const { registerSearchCallback, unregisterSearchCallback } = useGlobalSearch()
 
     // Reactive data
@@ -21,6 +23,10 @@ export default {
     const sortLabel = ref('None')
     const sortOrder = ref('asc')
     const searchQuery = ref('')
+
+    const goToCreateBook = () => {
+      router.push({ name: 'CreateBook' })
+    }
 
     const overviews = ref([
       {
@@ -162,6 +168,7 @@ export default {
       titleCase,
       chooseValue,
       chooseSort,
+      goToCreateBook,
     }
   },
 }
@@ -267,25 +274,17 @@ export default {
           </div>
         </div> -->
       </div>
-      <div style="display: flex; justify-content: flex-end;margin-right: 50px;" >
+      <div style="display: flex; justify-content: flex-end; margin-right: 50px">
         <div class="add-btn-wrapper">
-        <button
-          @click.stop="addBook(book.id)"
-          class="add-button"
-          title="Add New Book"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 640 640"
-            class="add-icon"
-          >
-            <path
-              fill="currentColor"
-              d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
-            />
-          </svg>
-        </button>
-      </div>
+          <button @click.stop="goToCreateBook" class="add-button" title="Add New Book">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" class="add-icon">
+              <path
+                fill="currentColor"
+                d="M352 128C352 110.3 337.7 96 320 96C302.3 96 288 110.3 288 128L288 288L128 288C110.3 288 96 302.3 96 320C96 337.7 110.3 352 128 352L288 352L288 512C288 529.7 302.3 544 320 544C337.7 544 352 529.7 352 512L352 352L512 352C529.7 352 544 337.7 544 320C544 302.3 529.7 288 512 288L352 288L352 128z"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div class="booklist-section">
         <div class="sort-menu-btn"></div>
@@ -330,7 +329,9 @@ export default {
   justify-content: center;
 
   /* cursor: pointer; */
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
 }
 
 .add-button:hover {
@@ -349,7 +350,6 @@ export default {
   transition: color 0.15s ease;
 }
 
-
 /* Responsive design */
 @media (max-width: 768px) {
   .header {
@@ -367,6 +367,5 @@ export default {
   .line {
     width: 100%;
   }
-
 }
 </style>
