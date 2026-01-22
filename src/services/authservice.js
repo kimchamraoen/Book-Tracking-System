@@ -1,4 +1,5 @@
-import api from "./api";
+import apiClient from "./api";
+// import api from "@/services/api";
 
 // Define API endpoints
 const ENDPOINTS = {
@@ -11,7 +12,7 @@ const ENDPOINTS = {
 // Register a new user
 export const register = async (data) => {
   try {
-    const response = await api.post(ENDPOINTS.REGISTER, data);
+    const response = await apiClient.post(ENDPOINTS.REGISTER, data);
     return response.data; // Return relevant data from response
   } catch (error) {
     // Handle registration error
@@ -23,7 +24,7 @@ export const register = async (data) => {
 // Log in a user
 export const login = async (data) => {
   try {
-    const response = await api.post(ENDPOINTS.LOGIN, data);
+    const response = await apiClient.post(ENDPOINTS.LOGIN, data);
     // Assuming you receive a token in response
     if (response.data.token) {
       localStorage.setItem("token", response.data.token);
@@ -61,7 +62,7 @@ export const logout = () => {
 // Fetch Books Data
 export const getBooks = async () => {
   try {
-    const response = await api.get(ENDPOINTS.BOOK);
+    const response = await apiClient.get(ENDPOINTS.BOOK);
     return response.data;
   } catch (error) {
     console.error("Books fetch error:", error);
@@ -72,7 +73,7 @@ export const getBooks = async () => {
 // Fetch Admin Profile
 export const getAdminProfile = async () => {
   try {
-    const response = await api.get(ENDPOINTS.PROFILE);
+    const response = await apiClient.get(ENDPOINTS.PROFILE);
     return response.data; // Should return { name, email, role, etc. }
   } catch (error) {
     console.error("Profile fetch error:", error);
