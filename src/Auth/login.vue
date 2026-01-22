@@ -19,7 +19,7 @@ export default {
         console.log("Login successful:", res);
 
         // Redirect after login
-        this.$router.push("/dashboard");
+        this.$router.push("/admin/dashboard");
       } catch (_err) {
         this.error = "Invalid email or password";
       }

@@ -4,6 +4,8 @@ import api from "./api";
 const ENDPOINTS = {
   REGISTER: "/auth/register",
   LOGIN: "/auth/login",
+  PROFILE: "/admin/profile",
+  BOOK: "/admin/books",
 };
 
 // Register a new user
@@ -43,4 +45,37 @@ export const logout = () => {
   localStorage.removeItem("token");
   localStorage.removeItem("user");
   // Optionally perform additional actions, like redirecting
+};
+
+//fetch dashboard data
+// export const fetchDashboardData = async () => {
+//   try {
+//     const response = await api.get(ENDPOINTS.DASHBOARD);
+//     return response.data;
+//   } catch (error) {
+//     console.error("Dashboard fetch error:", error);
+//     throw error;
+//   }
+// }
+
+// Fetch Books Data
+export const getBooks = async () => {
+  try {
+    const response = await api.get(ENDPOINTS.BOOK);
+    return response.data;
+  } catch (error) {
+    console.error("Books fetch error:", error);
+    throw error;
+  }
+};
+
+// Fetch Admin Profile
+export const getAdminProfile = async () => {
+  try {
+    const response = await api.get(ENDPOINTS.PROFILE);
+    return response.data; // Should return { name, email, role, etc. }
+  } catch (error) {
+    console.error("Profile fetch error:", error);
+    throw error;
+  }
 };
