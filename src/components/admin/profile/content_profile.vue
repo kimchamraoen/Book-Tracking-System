@@ -9,8 +9,8 @@
           class="avatar"
         />
         <div>
-          <h2>John Doe</h2>
-          <p>System Administrator</p>
+          <h2>{{ user.firstName }} {{ user.lastName }}</h2>
+          <p>{{ user.role == 'admin' ? 'System Administrator' : user.role }}</p>
         </div>
       </div>
 
@@ -26,15 +26,15 @@
 
         <div class="info-row">
           <span>Email</span>
-          <span>admin@example.com</span>
+          <span>{{ user.email }}</span>
         </div>
         <div class="info-row">
           <span>Username</span>
-          <span>admin_john</span>
+          <span>{{ user.username }}</span>
         </div>
         <div class="info-row">
           <span>Phone</span>
-          <span>+1 234 567 890</span>
+          <span>{{ user.phoneNumber }}</span>
         </div>
         <div class="info-row">
           <span>Location</span>
@@ -44,7 +44,7 @@
     </div>
 
     <!-- Logout Button (Bottom Right) -->
-    <button class="logout-btn" @click="logout">
+    <button class="logout-btn" @click="handleLogout">
       Logout
     </button>
 
@@ -59,27 +59,27 @@
         <div class="modal-body">
           <div class="form-group">
             <label>Full Name</label>
-            <input type="text" value="John Doe" />
+            <input type="text" v-model="user.firstName" value="John Doe" />
           </div>
 
           <div class="form-group">
             <label>Email</label>
-            <input type="email" value="admin@example.com" />
+            <input type="email" v-model="user.email" value="admin@example.com" />
           </div>
 
           <div class="form-group">
             <label>Username</label>
-            <input type="text" value="admin_john" />
+            <input type="text" v-model="user.username" value="admin_john" />
           </div>
 
           <div class="form-group">
             <label>Phone</label>
-            <input type="text" value="+1 234 567 890" />
+            <input type="text" v-model="user.phoneNumber" value="+1 234 567 890" />
           </div>
 
           <div class="form-group">
             <label>Location</label>
-            <input type="text" value="New York, USA" />
+            <input type="text" v-model="user.location" value="New York, USA" />
           </div>
         </div>
 
@@ -87,7 +87,7 @@
           <button class="secondary" @click="showEdit = false">
             Cancel
           </button>
-          <button class="primary">
+          <button class="primary" @click="saveChanges">
             Save Changes
           </button>
         </div>
@@ -97,16 +97,50 @@
 </template>
 
 <script>
+import { logout } from "@/services/authservice";
+
 export default {
   data() {
     return {
-      showEdit: false
+      showEdit: false,
+      // Initialize with empty fields to avoid errors before data loads
+      user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        role: '',
+        phoneNumber: '',
+        department: '',
+        createdAt: ''
+      }
     };
   },
+  mounted() {
+    // 1. Get the user data from localStorage that you saved during login
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+      this.user = JSON.parse(savedUser);
+    } else {
+      // If no user found, redirect to login
+      this.$router.push('/login');
+    }
+  },
   methods: {
-    logout() {
-      // Static placeholder
-      alert("Logged out successfully");
+    formatDate(dateString) {
+      if (!dateString) return '';
+      const date = new Date(dateString);
+      return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+    },
+    handleLogout() {
+      logout(); // Clears localStorage
+      this.$router.push('/login');
+    },
+    async saveChanges() {
+      // Here you would call an API update function
+      // For now, we update localStorage so the changes persist on refresh
+      localStorage.setItem("user", JSON.stringify(this.user));
+      alert("Profile updated locally!");
+      this.showEdit = false;
     }
   }
 };

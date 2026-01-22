@@ -56,7 +56,7 @@ export default {
           password: this.password,
           password_confirmation: this.password_confirmation,
         });
-
+        this.$router.push("/login");
         this.message = "Registration successful!";
         this.error = "";
       } catch (err) {
