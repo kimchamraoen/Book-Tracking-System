@@ -23,16 +23,20 @@
           <span>{{ user.email }}</span>
         </div>
         <div class="info-row">
-          <span>Username</span>
-          <span>{{ user.username }}</span>
+          <span>First Name</span>
+          <span>{{ user.firstName }}</span>
+        </div>
+        <div class="info-row">
+          <span>Last Name</span>
+          <span>{{ user.lastName }}</span>
         </div>
         <div class="info-row">
           <span>Phone</span>
           <span>{{ user.phoneNumber }}</span>
         </div>
         <div class="info-row">
-          <span>Location</span>
-          <span>New York, USA</span>
+          <span>Created at</span>
+          <span>{{ formatDate(user.createdAt) }}</span>
         </div>
       </div>
     </div>
@@ -60,8 +64,13 @@
           </div>
 
           <div class="form-group">
-            <label>Username</label>
-            <input type="text" v-model="user.username" value="admin_john" />
+            <label>First Name</label>
+            <input type="text" v-model="user.firstName" value="John Doe" />
+          </div>
+
+          <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" v-model="user.lastName" value="Doe" />
           </div>
 
           <div class="form-group">
@@ -69,10 +78,6 @@
             <input type="text" v-model="user.phoneNumber" value="+1 234 567 890" />
           </div>
 
-          <div class="form-group">
-            <label>Location</label>
-            <input type="text" v-model="user.location" value="New York, USA" />
-          </div>
         </div>
 
         <div class="modal-actions">
@@ -85,7 +90,7 @@
 </template>
 
 <script>
-import { logout } from '@/services/AuthService'
+import { logout } from '@/services/authservice.js';
 
 export default {
   data() {
