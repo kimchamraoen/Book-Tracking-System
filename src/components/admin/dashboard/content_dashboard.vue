@@ -135,8 +135,7 @@
               :yearGroup="Reading.yearGroup"
               :tableNumber="Reading.tableNumber"
               :timeRecorded="Reading.timeRecorded"
-              title-color= "#243f92"
-              
+              title-color="#243f92"
             />
           </div>
         </div>
@@ -144,6 +143,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import dashboardInfoBlock from './dashboard-infoBlock.vue'
 
@@ -155,6 +155,11 @@ import staffImage from '@/assets/images/staff-library.png'
 
 import DashboardCirculationActivityBlock from '@/components/admin/dashboard/dashboard-circulation-activity-block.vue'
 import DashboardReadingActivityBlock from '@/components/admin/dashboard/dashboard-reading-activity-block.vue'
+import { getBooks } from '@/services/book-service'
+import { getAllLocations } from '@/services/location-service'
+import { getAllUsers } from '@/services/user-service'
+import { getAllHistory } from '@/services/history-service'
+
 export default {
   name: 'ContentDashboard',
   components: {
@@ -167,113 +172,83 @@ export default {
       overviews: [
         {
           title: 'Total Books',
-          count: 1500,
+          count: 0,
           image: bookstackImage,
           blockColor: '#09408f',
-          description1: '15 Available',
-          description2: '15 Borrowed',
-          description3: '15 Reserved',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
         {
           title: 'Total Shelves',
-          count: 50,
+          count: 0,
           image: bookstackImage,
           blockColor: '#09408f',
-          description1: '120 depts',
-          description2: '120 genres',
-          description3: '120 empty',
-        },
-        {
-          title: 'Total Genres',
-          count: 12,
-          image: bookCategoryImage,
-          blockColor: '#09408f',
-          description1: '12 Trending',
-          description2: '12 Top Borrowed',
-          description3: '12 New',
         },
         {
           title: 'Total Tables',
-          count: 12,
+          count: 0,
           image: seatImage,
           blockColor: '#09408f',
-          description1: '12 available',
-          description2: '12 reading',
-          description3: '12 reserved',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
         {
           title: 'Total Members',
-          count: 320,
+          count: 0,
           image: memberImage,
           blockColor: '#09408f',
-          description1: '320 active',
-          description2: '320 inactive',
-          description3: '320 deleted',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
         {
           title: 'Total Staff',
-          count: 320,
+          count: 0,
           image: staffImage,
           blockColor: '#09408f',
-          description1: '12 present',
-          description2: '12 absent',
-          description3: '12 resigned',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
       ],
       summary: [
         {
-          title: 'Registerations',
-          count: 50,
+          title: 'Registrations',
+          count: 0,
           image: bookstackImage,
           blockColor: '#09408f',
-          description1: '1 students',
-          description2: '1 professors',
-          description3: '1 guests',
         },
         {
           title: 'Admin Activities',
-          count: 20,
+          count: 0,
           image: bookstackImage,
           blockColor: '#09408f',
-          description1: '2 Added',
-          description2: '2 Updated',
-          description3: '2 Deleted',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
         {
           title: 'Reading Activities',
-          count: 30,
+          count: 0,
           image: bookstackImage,
           blockColor: '#09408f',
-          description1: '5 sessions',
-          description2: '5 progressing',
-          description3: '5 completed',
+          description1: 'Loading...',
+          description2: '',
+          description3: '',
         },
         {
-          title: 'Reservations',
-          count: 5,
-          image: memberImage,
-          blockColor: '#09408f',
-          description1: '5 Books',
-          description2: '5 Tables',
-          description3: '5 Pendings',
-        },
-        {
-          title: 'Borrowings',
-          count: 20,
+          title: 'Borrowings Activities',
+          count: 0,
           image: staffImage,
           blockColor: '#09408f',
-          description1: '2 transactions',
-          description2: '2 books',
-          description3: '2 borrowers',
         },
         {
-          title: 'Returnings',
-          count: 15,
+          title: 'Returnings Activities',
+          count: 0,
           image: seatImage,
           blockColor: '#09408f',
-          description1: '3 returnings',
-          description2: '3 on-times',
-          description3: '3 lates',
         },
       ],
       Borrowings: [
@@ -283,42 +258,6 @@ export default {
           activity: 'Borrowed',
           timeRecorded: '12:00:00 PM',
         },
-        {
-          username: 'Jane Smith',
-          yearGroup: 'I4-GIC-B',
-          activity: 'Borrowed',
-          timeRecorded: '11:30:00 AM',
-        },
-        {
-          username: 'Alice Johnson',
-          yearGroup: 'I4-GIC-C',
-          activity: 'Borrowed',
-          timeRecorded: '10:00:00 AM',
-        },
-        {
-          username: 'Bob Brown',
-          yearGroup: 'I4-GIC-D',
-          activity: 'Borrowed',
-          timeRecorded: '9:45:00 AM',
-        },
-        {
-          username: 'Charlie White',
-          yearGroup: 'I4-GIC-E',
-          activity: 'Borrowed',
-          timeRecorded: '9:30:00 AM',
-        },
-        {
-          username: 'David Green',
-          yearGroup: 'I4-GIC-F',
-          activity: 'Borrowed',
-          timeRecorded: '9:15:00 AM',
-        },
-        {
-          username: 'Eve Black',
-          yearGroup: 'I4-GIC-G',
-          activity: 'Borrowed',
-          timeRecorded: '9:00:00 AM',
-        },
       ],
       Returnings: [
         {
@@ -326,42 +265,6 @@ export default {
           yearGroup: 'I4-GIC-A',
           activity: 'Returned',
           timeRecorded: '12:00:00 PM',
-        },
-        {
-          username: 'Jane Smith',
-          yearGroup: 'I4-GIC-B',
-          activity: 'Returned',
-          timeRecorded: '11:30:00 AM',
-        },
-        {
-          username: 'Alice Johnson',
-          yearGroup: 'I4-GIC-C',
-          activity: 'Returned',
-          timeRecorded: '10:00:00 AM',
-        },
-        {
-          username: 'Bob Brown',
-          yearGroup: 'I4-GIC-D',
-          activity: 'Returned',
-          timeRecorded: '9:45:00 AM',
-        },
-        {
-          username: 'Charlie White',
-          yearGroup: 'I4-GIC-E',
-          activity: 'Returned',
-          timeRecorded: '9:30:00 AM',
-        },
-        {
-          username: 'David Green',
-          yearGroup: 'I4-GIC-F',
-          activity: 'Returned',
-          timeRecorded: '9:15:00 AM',
-        },
-        {
-          username: 'Eve Black',
-          yearGroup: 'I4-GIC-G',
-          activity: 'Returned',
-          timeRecorded: '9:00:00 AM',
         },
       ],
       Reservings: [
@@ -371,42 +274,6 @@ export default {
           activity: 'Reserved',
           timeRecorded: '12:00:00 PM',
         },
-        {
-          username: 'Jane Smith',
-          yearGroup: 'I4-GIC-B',
-          activity: 'Reserved',
-          timeRecorded: '11:30:00 AM',
-        },
-        {
-          username: 'Alice Johnson',
-          yearGroup: 'I4-GIC-C',
-          activity: 'Reserved',
-          timeRecorded: '10:00:00 AM',
-        },
-        {
-          username: 'Bob Brown',
-          yearGroup: 'I4-GIC-D',
-          activity: 'Reserved',
-          timeRecorded: '9:45:00 AM',
-        },
-        {
-          username: 'Charlie White',
-          yearGroup: 'I4-GIC-E',
-          activity: 'Reserved',
-          timeRecorded: '9:30:00 AM',
-        },
-        {
-          username: 'David Green',
-          yearGroup: 'I4-GIC-F',
-          activity: 'Reserved',
-          timeRecorded: '9:15:00 AM',
-        },
-        {
-          username: 'Eve Black',
-          yearGroup: 'I4-GIC-G',
-          activity: 'Reserved',
-          timeRecorded: '9:00:00 AM',
-        },
       ],
       Readings: [
         {
@@ -415,47 +282,167 @@ export default {
           tableNumber: 'T-001',
           timeRecorded: '12:00:00 PM',
         },
-        {
-          username: 'Jane Smith',
-          yearGroup: 'I4-GIC-B',
-          tableNumber: '002',
-          timeRecorded: '11:00:00 AM',
-        },
-        {
-          username: 'Alice Johnson',
-          yearGroup: 'I4-GIC-C',
-          tableNumber: '003',
-          timeRecorded: '10:30:00 AM',
-        },
-        {
-          username: 'Bob Brown',
-          yearGroup: 'I4-GIC-D',
-          tableNumber: '004',
-          timeRecorded: '9:45:00 AM',
-        },
-        {
-          username: 'Charlie White',
-          yearGroup: 'I4-GIC-E',
-          tableNumber: '005',
-          timeRecorded: '9:30:00 AM',
-        },
-        {
-          username: 'David Green',
-          yearGroup: 'I4-GIC-F',
-          tableNumber: '006',
-          timeRecorded: '9:15:00 AM',
-        },
-        {
-          username: 'Eve Black',
-          yearGroup: 'I4-GIC-G',
-          tableNumber: '007',
-          timeRecorded: '9:00:00 AM',
-        },
       ],
     }
   },
+  async mounted() {
+    await this.fetchDashboardData()
+  },
+  methods: {
+    isToday(dateString) {
+      if (!dateString) return false
+      const today = new Date()
+      const itemDate = new Date(dateString)
+
+      return (
+        today.getFullYear() === itemDate.getFullYear() &&
+        today.getMonth() === itemDate.getMonth() &&
+        today.getDate() === itemDate.getDate()
+      )
+    },
+    async fetchDashboardData() {
+      try {
+        const [books, locations, allUsers, allHistory] = await Promise.all([
+          getBooks(),
+          getAllLocations(),
+          getAllUsers(),
+          getAllHistory(),
+        ])
+
+        // --- 1. OVERVIEW BLOCKS ---
+
+        // Update Books
+        if (books && Array.isArray(books)) {
+          const bookBlock = this.overviews.find((b) => b.title === 'Total Books')
+          if (bookBlock) {
+            bookBlock.count = books.length
+            bookBlock.description1 = `${books.filter((b) => b.status?.toLowerCase() === 'available').length} Available`
+            bookBlock.description2 = `${books.filter((b) => b.status?.toLowerCase() === 'borrowed').length} Borrowed`
+            bookBlock.description3 = `${books.filter((b) => b.status?.toLowerCase() === 'reading').length} Reading`
+          }
+        }
+
+        // Update Shelves
+        if (locations && Array.isArray(locations)) {
+          const shelfBlock = this.overviews.find((b) => b.title === 'Total Shelves')
+          if (shelfBlock) {
+            // We filter for "shelf" within all locations
+            const shelves = locations.filter((loc) => loc.name?.toLowerCase().includes('shelf'))
+            shelfBlock.count = shelves.length
+          }
+        }
+
+        if (locations && Array.isArray(locations) && books && Array.isArray(books)) {
+          const tableBlock = this.overviews.find((b) => b.title === 'Total Tables')
+          if (tableBlock) {
+            // Find all location objects that are actually tables
+            const allTables = locations.filter((loc) => loc.name?.toLowerCase().includes('table'))
+
+            // Identify IDs of tables currently being used (Book Status = 'reading')
+            // We use String() conversion to ensure the IDs match even if one is a number and one is a string
+            const occupiedTableIds = new Set(
+              books
+                .filter((b) => b.status?.toLowerCase() === 'reading' && b.locationId)
+                .map((b) => String(b.locationId)),
+            )
+
+            const occupiedCount = allTables.filter((t) => occupiedTableIds.has(String(t.id))).length
+            const availableCount = allTables.length - occupiedCount
+
+            tableBlock.count = allTables.length
+            tableBlock.description1 = `${availableCount} Available`
+            tableBlock.description2 = `${occupiedCount} Occupied`
+          }
+        }
+
+        // --- 4. Update Members Block ---
+        if (allUsers && Array.isArray(allUsers)) {
+          const memberBlock = this.overviews.find((b) => b.title === 'Total Members')
+          if (memberBlock) {
+            // Filter only those with role 'user'
+            const members = allUsers.filter((u) => u.role === 'user')
+
+            memberBlock.count = members.length
+
+            // Detailed descriptions based on Department enum
+            const gicCount = members.filter((u) => u.department === 'GIC').length
+            const amsCount = members.filter((u) => u.department === 'AMS').length
+            const othersCount = members.length - (gicCount + amsCount)
+
+            memberBlock.description1 = `${gicCount} GIC Members`
+            memberBlock.description2 = `${amsCount} AMS Members`
+            memberBlock.description3 = `${othersCount} Others`
+          }
+
+          // --- 5. Update Staff Block ---
+          const staffBlock = this.overviews.find((b) => b.title === 'Total Staff')
+          if (staffBlock) {
+            const staff = allUsers.filter((u) => u.role === 'librarian' || u.role === 'admin')
+            staffBlock.count = staff.length
+            staffBlock.description1 = `${allUsers.filter((u) => u.role === 'librarian').length} Librarians`
+            staffBlock.description2 = `${allUsers.filter((u) => u.role === 'admin').length} Admins`
+          }
+        }
+
+        // --- TODAY SUMMARY ---
+
+        // 1. Registrations
+        const regBlock = this.summary.find((s) => s.title === 'Registerations')
+        if (regBlock && Array.isArray(allUsers)) {
+          const todayReg = allUsers.filter((u) => this.isToday(u.createdAt) && u.role === 'user')
+          regBlock.count = todayReg.length
+        }
+
+        // 2. Admin Activities (Books created today)
+        const adminBlock = this.summary.find((s) => s.title === 'Admin Activities')
+        if (adminBlock && Array.isArray(books)) {
+          const todayAdded = books.filter((b) => this.isToday(b.createdAt)).length
+          adminBlock.count = todayAdded
+          adminBlock.description1 = `${todayAdded} Books Added`
+          adminBlock.description2 = `${books.filter((b) => this.isToday(b.updatedAt)).length} Books Updated`
+          adminBlock.description3 = `${books.filter((b) => this.isToday(b.deletedAt)).length} Books Deleted`
+        }
+
+        // 3. Reading/Borrowing/Returning (Current Status)
+        const readBlock = this.summary.find((s) => s.title === 'Reading Activities')
+        if (readBlock && Array.isArray(books)) {
+          const currentReading = books.filter((b) => b.status?.toLowerCase() === 'reading')
+          const todayReads = books.filter(
+            (b) => this.isToday(b.updatedAt) && b.status?.toLowerCase() === 'reading',
+          )
+          readBlock.count = todayReads.length
+          readBlock.description1 = `${currentReading.length} active sessions`
+        }
+
+        const borrowBlock = this.summary.find((s) => s.title === 'Borrowings Activities')
+        if (borrowBlock && Array.isArray(books)) {
+          const currentBorrowed = books.filter((b) => b.status?.toLowerCase() === 'borrowed')
+          borrowBlock.count = currentBorrowed.length
+        }
+
+        // --- Returning Block Debug Version ---
+        const history = Array.isArray(allHistory) ? allHistory : []
+        const returnBlock = this.summary.find((s) => s.title.includes('Returning'))
+
+        if (returnBlock) {
+          const todayReturns = history.filter((h) => {
+            return (
+              this.isToday(h.timestamp) &&
+              h.fromStatus?.toLowerCase() === 'borrowed' &&
+              h.toStatus?.toLowerCase() === 'available'
+            )
+          })
+
+          returnBlock.count = todayReturns.length
+        }
+      } catch (error) {
+        console.error('Failed to load dashboard stats:', error)
+      }
+    },
+  },
 }
 </script>
+
 <style scoped>
 .content-dashboard {
   display: flex;

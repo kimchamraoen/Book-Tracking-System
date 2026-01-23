@@ -1,5 +1,5 @@
 <script>
-import { login } from "@/services/AuthService";
+import { login } from "../services/authservice";
 
 export default {
   data() {

@@ -1,6 +1,6 @@
 // stores/books.js
 import { defineStore } from 'pinia'
-import { getBooks, updateBook, createBook, deleteBook } from '../services/AuthService' // Your API file
+import { getBooks, updateBook, createBook, deleteBook } from '../services/book-service' // Your API file
 
 export const useBooksStore = defineStore('books', {
   state: () => ({
@@ -11,100 +11,114 @@ export const useBooksStore = defineStore('books', {
   }),
   actions: {
     // Action to fetch all books
+    // stores/books.js
     async fetchBooks() {
-      this.loading = true;
+      this.loading = true
+      this.error = null
       try {
-        const data = await getBooks();
-        this.books = data; 
+        const data = await getBooks()
+        // console.log("Fetched Books:", data); // Check if data.location exists here
+        this.books = Array.isArray(data) ? data : []
       } catch (err) {
-        this.error = err.message;
+        this.error = err.message
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
 
     // ADD THIS NEW ACTION:
     async fetchBookById(id) {
-      this.loading = true;
-      this.currentBook = null; // Clear old data
+      this.loading = true
+      this.currentBook = null // Clear old data
       try {
         // Option A: If books are already loaded, find it locally
-        const existingBook = this.books.find(b => String(b.id) === String(id));
-        
+        const existingBook = this.books.find((b) => String(b.id) === String(id))
+
         if (existingBook) {
-          this.currentBook = existingBook;
+          this.currentBook = existingBook
         } else {
           // Option B: Fetch all books again if the array is empty (e.g., on page refresh)
-          await this.fetchBooks();
-          this.currentBook = this.books.find(b => String(b.id) === String(id));
+          await this.fetchBooks()
+          this.currentBook = this.books.find((b) => String(b.id) === String(id))
         }
-        
+
         if (!this.currentBook) {
-          throw new Error("Book not found");
+          throw new Error('Book not found')
         }
       } catch (err) {
-        this.error = err.message;
+        this.error = err.message
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
 
     // Action to update a book
-    async updateBook(id, updatedFields){
-      this.loading = true;
-      try{
-        const updatedBook = await updateBook(id, updatedFields);
+    async updateBook(id, updatedFields) {
+      this.loading = true
+      try {
+        const updatedBook = await updateBook(id, updatedFields)
         // Update the book in the local state
-        const index = this.books.findIndex(b => String(b.id) === String(id));
-        if(index !== -1){
+        const index = this.books.findIndex((b) => String(b.id) === String(id))
+        if (index !== -1) {
           this.books[index] = {
             ...updatedBook,
             // status: updatedBook.availability ? 'Available' : 'Borrowed',
             // department: updatedBook.location?.name || 'Unknown'
           }
         }
-        return true;
-      } catch(err){
-        this.error = err.message;
-        return false;
+        return true
+      } catch (err) {
+        this.error = err.message
+        return false
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
 
     // NEW: Create Book
     async createBook(bookData) {
-      this.loading = true;
+      this.loading = true
       try {
-        const newBook = await createBook(bookData);
-        this.books.push(newBook); // Add to local state
-        return newBook;
+        const newBook = await createBook(bookData)
+        this.books.push(newBook) // Add to local state
+        return newBook
       } catch (err) {
-        this.error = err.message;
-        throw err; // Re-throw so component can catch
+        this.error = err.message
+        throw err // Re-throw so component can catch
       } finally {
-        this.loading = false;
+        this.loading = false
       }
     },
 
     // Delete a book
     async deleteBook(id) {
-      this.loading = true;
+      this.loading = true
       try {
-        await deleteBook(id); // Call backend
+        await deleteBook(id) // Call backend
         // Remove from local state
-        this.books = this.books.filter(b => String(b.id) !== String(id));
+        this.books = this.books.filter((b) => String(b.id) !== String(id))
         if (this.currentBook && String(this.currentBook.id) === String(id)) {
-          this.currentBook = null;
+          this.currentBook = null
         }
-        return true;
+        return true
       } catch (err) {
-        this.error = err.message;
-        console.error('Delete Book Error:', err);
-        return false;
+        this.error = err.message
+        console.error('Delete Book Error:', err)
+        return false
       } finally {
-        this.loading = false;
+        this.loading = false
       }
-    }
+    },
+  },
+  computed: {
+    sortedBooks() {
+      // Check if books is a valid array before sorting
+      if (!this.booksStore.books || !Array.isArray(this.booksStore.books)) return []
+
+      return [...this.booksStore.books].sort((a, b) => {
+        // Sort by createdAt property from your entity
+        return new Date(b.createdAt) - new Date(a.createdAt)
+      })
+    },
   },
 })

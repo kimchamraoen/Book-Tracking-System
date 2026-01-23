@@ -7,33 +7,38 @@
           <th>ISBN</th>
           <th>Title</th>
           <th>Author</th>
-          <th>Genre</th>
+          <th>Item No.</th>
+          <th>CLL No.</th>
           <th>Department</th>
-          <th>Language</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-if="loading">
-          <td colspan="8" class="table-loading">Loading books...</td>
+        <tr v-if="booksStore.loading">
+          <td colspan="9" class="table-loading">Loading books...</td>
         </tr>
-        <tr v-else-if="error">
-          <td colspan="8" class="table-error">
-            {{ error }}
+
+        <tr v-else-if="booksStore.error">
+          <td colspan="9" class="table-error">
+            {{ booksStore.error }}
             <button @click="booksStore.fetchBooks()" class="retry-btn">Retry</button>
           </td>
         </tr>
-        <tr v-else v-for="book in sortedBooks" :key="book.id" @click="goToBookDetail(book)">
+
+        <tr v-for="book in sortedBooks" :key="book.id" @click="viewBook(book.id)">
           <td>
-            <img :src="book.coverImage" alt="Book Cover" class="table-image" />
+            <img :src="book.coverImage || '/placeholder.png'" alt="Cover" class="table-image" />
           </td>
           <td class="truncate-sm">{{ book.isbn }}</td>
           <td class="truncate">{{ book.title }}</td>
           <td class="truncate">{{ book.author }}</td>
-          <td class="truncate">{{ book.genre }}</td>
-          <td class="truncate">{{ book.department }}</td>
-          <td class="truncate-sm">{{ book.language }}</td>
+
+          <td class="truncate">{{ book.itemNumber }}</td>
+          <td class="truncate">{{ book.cllNumber }}</td>
+
+          <td class="truncate">{{ book.location?.name || 'N/A' }}</td>
+
           <td>
             <span :class="['status-chip', statusClass(book.status)]">
               {{ book.status }}
@@ -77,112 +82,54 @@
             </div>
           </td>
         </tr>
-        <tr v-if="!loading && !error && sortedBooks.length === 0">
-          <td colspan="8" class="table-empty">No books found</td>
+
+        <tr v-if="!booksStore.loading && !booksStore.error && sortedBooks.length === 0">
+          <td colspan="9" class="table-empty">No books found</td>
         </tr>
       </tbody>
     </table>
   </div>
 </template>
+
 <script>
 import { useBooksStore } from '../../../stores/books.js'
 
 export default {
-  name: 'BooklistContent',
-  props: ['sortKey', 'sortOrder', 'filterValue', 'searchQuery'],
-  data() {
-    return {
-      booksStore: useBooksStore(),
-    }
+  name: 'BookListContent',
+  setup() {
+    const booksStore = useBooksStore()
+    return { booksStore }
+  },
+  computed: {
+    // This creates the array for the v-for
+    sortedBooks() {
+      // Always check if it's an array first to prevent "undefined" errors
+      if (!this.booksStore.books || !Array.isArray(this.booksStore.books)) return []
+
+      return [...this.booksStore.books].sort((a, b) => {
+        return new Date(b.createdAt) - new Date(a.createdAt)
+      })
+    },
   },
   async mounted() {
-    // Fetch books when component mounts
-    // if (this.booksStore.books.length === 0) {
-    //   await this.booksStore.fetchBooks()
-    // }
+    // Fetch data immediately when the table is displayed
     await this.booksStore.fetchBooks()
   },
   methods: {
-    // goToBookDetail(book) {
-    //   this.$router.push({ name: 'BookDetails', params: { id: String(book.id) } })
-    // },
     statusClass(status) {
-      const map = {
-        Available: 'status-available',
-        Borrowed: 'status-borrowed',
-        Reserved: 'status-reserved',
-        Reading: 'status-reading',
-        Lost: 'status-lost',
-      }
-      return map[status] || 'status-unknown'
+      if (!status) return 'default'
+      return status.toLowerCase() // matches CSS: .available, .borrowed, etc.
     },
-    goToBookDetail(book) {
-      this.$router.push({ name: 'BookDetails', params: { id: String(book.id) } })
+    viewBook(id) {
+      this.$router.push(`/admin/books/${id}`)
     },
-    viewBook(bookId) {
-      this.$router.push({ name: 'BookDetails', params: { id: String(bookId) } })
-    },
-    editBook(bookId) {
-      this.$router.push({ name: 'EditBook', params: { id: String(bookId) } })
+    editBook(id) {
+      this.$router.push(`/admin/books/edit/${id}`)
     },
     async handleDelete(id) {
-      const confirmed = confirm('Are you sure you want to delete this book?');
-      if (!confirmed) return;
-
-      const success = await this.booksStore.deleteBook(id);
-      if (success) {
-        alert('Book deleted successfully!');
-        this.$router.push({ name: 'BooksContent' }); // go back to list
-      } else {
-        alert('Failed to delete book. Check console.');
+      if (confirm('Delete this book forever?')) {
+        await this.booksStore.deleteBook(id)
       }
-    }
-  },
-  computed: {
-    books() {
-      return this.booksStore.books
-    },
-    loading() {
-      return this.booksStore.loading
-    },
-    error() {
-      return this.booksStore.error
-    },
-    sortedBooks() {
-      let result = [...this.books]
-
-      // 1. Apply search filter first
-      if (this.searchQuery && this.searchQuery.trim()) {
-        const query = this.searchQuery.toLowerCase().trim()
-        result = result.filter(
-          (book) =>
-            book.title.toLowerCase().includes(query) ||
-            book.author.toLowerCase().includes(query) ||
-            book.isbn.toLowerCase().includes(query) ||
-            book.genre.toLowerCase().includes(query) ||
-            book.department.toLowerCase().includes(query),
-        )
-      }
-
-      // 2. Filter by value (e.g. only show "Fantasy")
-      if (this.filterValue) {
-        result = result.filter(
-          (book) => String(book[this.sortKey]).toLowerCase() === this.filterValue.toLowerCase(),
-        )
-      }
-
-      // 3. Sort alphabetically
-      if (this.sortKey && this.sortKey !== 'none') {
-        result.sort((a, b) => {
-          const valA = String(a[this.sortKey] || '').toLowerCase()
-          const valB = String(b[this.sortKey] || '').toLowerCase()
-          if (this.sortOrder === 'asc') return valA.localeCompare(valB)
-          if (this.sortOrder === 'desc') return valB.localeCompare(valA)
-          return 0
-        })
-      }
-
-      return result
     },
   },
 }

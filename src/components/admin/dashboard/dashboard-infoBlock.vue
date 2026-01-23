@@ -37,15 +37,15 @@ export default {
     },
     description1: {
       type: String,
-      default: 'Description not provided', // Default description if not provided
+      default: '', // Default description if not provided
     },
     description2: {
       type: String,
-      default: 'Description not provided', // Default description if not provided
+      default: '', // Default description if not provided
     },
     description3: {
       type: String,
-      default: 'Description not provided', // Default description if not provided
+      default: '', // Default description if not provided
     },
   },
 }
