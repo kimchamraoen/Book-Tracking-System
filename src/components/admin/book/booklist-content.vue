@@ -9,7 +9,7 @@
           <th>Author</th>
           <th>Item No.</th>
           <th>CLL No.</th>
-          <th>Department</th>
+          <th>Location</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>

@@ -49,7 +49,7 @@
                 </tr>
                 <tr>
                   <th><strong>Phone:</strong></th>
-                  <td>{{ member.phone }}</td>
+                  <td>{{ member.phoneNumber }}</td>
                 </tr>
                 <tr>
                   <th><strong>Department:</strong></th>
@@ -61,7 +61,7 @@
                 </tr>
                 <tr>
                   <th><strong>Join Date:</strong></th>
-                  <td>{{ member.joinDate }}</td>
+                  <td>{{ member.createdAt }}</td>
                 </tr>
                 <tr>
                   <th><strong>Books Issued:</strong></th>

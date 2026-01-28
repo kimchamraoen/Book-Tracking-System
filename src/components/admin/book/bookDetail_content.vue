@@ -9,10 +9,10 @@
       <p>Loading book details...</p>
     </div>
 
-    <div v-else-if="error" class="error-container">
+    <!-- <div v-else-if="error" class="error-container">
       <p>{{ error }}</p>
       <button @click="retryFetch" class="retry-btn">Retry</button>
-    </div>
+    </div> -->
 
     <div v-else-if="!book" class="error-container">
       <p>Book not found</p>
@@ -21,7 +21,7 @@
 
     <div v-else class="content">
       <div class="module-detail">
-        <div class="module-card" style="flex: 1;">
+        <div class="module-card" style="flex: 1">
           <div class="card-left">
             <img
               :src="book.coverImage || '/src/assets/images/atomic-habit.jpg'"
@@ -31,8 +31,8 @@
           </div>
           <div class="card-right">
             <div class="card-name">
-              <h1 class="title name" v-if="book.title">{{ book.title }}</h1>
-              <h3 class="sub-title" v-if="book.subtitle">{{ book.subtitle }}</h3>
+              <h1 class="title">{{ book.title }}</h1>
+              <!-- <h3 class="sub-title" v-if="book.subtitle">{{ book.subtitle }}</h3> -->
               <span :class="['status-chip', statusClass]">
                 {{ book.status }}
               </span>
@@ -48,17 +48,19 @@
                   <th><strong>ISBN:</strong></th>
                   <td>{{ book.isbn }}</td>
                 </tr>
-                <tr>
-                  <th><strong>Department:</strong></th>
+                <tr v-if="book?.location">
+                  <th><strong>Location:</strong></th>
                   <td>
                     {{
-                      Array.isArray(book.department) ? book.department.join(', ') : book.department
+                      Array.isArray(book.location.description)
+                        ? book.location.description.join(', ')
+                        : book.location.description
                     }}
                   </td>
                 </tr>
-                <tr>
-                  <th><strong>Shelf:</strong></th>
-                  <td>{{ book.shelf }}</td>
+                <tr v-if="book.location">
+                  <th><strong>Type:</strong></th>
+                  <td>{{ book.location.type }}</td>
                 </tr>
                 <tr v-if="book.language">
                   <th><strong>Language:</strong></th>
@@ -72,42 +74,42 @@
         <div class="actions-div">
           <h2 style="margin: 0">Actions</h2>
           <button
-            :disabled="buttonStatesDisabled.borrow"
+            :disabled="buttonStatesDisabled?.borrow"
             @click="handleAction('Borrow')"
             class="action-btn"
           >
             Borrow
           </button>
           <button
-            :disabled="buttonStatesDisabled.return"
+            :disabled="buttonStatesDisabled?.return"
             @click="handleAction('Return')"
             class="action-btn"
           >
             Return
           </button>
           <button
-            :disabled="buttonStatesDisabled.read"
+            :disabled="buttonStatesDisabled?.read"
             @click="handleAction('Read')"
             class="action-btn"
           >
             Read
           </button>
           <button
-            :disabled="buttonStatesDisabled.finish"
+            :disabled="buttonStatesDisabled?.finish"
             @click="handleAction('Finish')"
             class="action-btn"
           >
             Finish
           </button>
           <button
-            :disabled="buttonStatesDisabled.reserve"
+            :disabled="buttonStatesDisabled?.reserve"
             @click="handleAction('Reserve')"
             class="action-btn"
           >
             Reserve
           </button>
           <button
-            :disabled="buttonStatesDisabled.cancel"
+            :disabled="buttonStatesDisabled?.cancel"
             @click="handleAction('Cancel')"
             class="action-btn"
           >
@@ -127,7 +129,7 @@
           <h2>Similar Books</h2>
           <div class="line"></div>
         </div>
-        <div v-if="similarBooks.length > 0" class="books-grid">
+        <div v-if="similarBooks?.length > 0" class="books-grid">
           <div
             v-for="similarBook in similarBooks"
             :key="similarBook.id"
@@ -178,27 +180,27 @@ export default {
   },
   async created() {
     // Get the ID from the URL parameters
-    const bookId = this.$route.params.id;
-    
+    const bookId = this.$route.params.id
+
     if (bookId) {
       // Now this function will exist because we added it to the store above
-      await this.booksStore.fetchBookById(bookId);
+      await this.booksStore.fetchBookById(bookId)
     }
   },
   computed: {
     book() {
-      return this.booksStore.currentBook;
+      return this.booksStore.currentBook
     },
     loading() {
-      return this.booksStore.loading;
-    }
-  }
+      return this.booksStore.loading
+    },
+  },
 }
 </script>
 
 <style scoped>
 /* Component-specific styles only - reuse original CSS classes */
-.content-book{
+.content-book {
   width: 100%;
   overflow: auto;
   box-sizing: border-box;
@@ -216,6 +218,7 @@ export default {
   font-size: 3rem;
   font-weight: 700;
   margin: 0;
+  color: #243f92;
 }
 
 .sub-title {
@@ -225,7 +228,7 @@ export default {
   color: #666;
 }
 
-.content{
+.content {
   display: grid;
   justify-items: center;
   align-items: center;
@@ -233,42 +236,42 @@ export default {
   padding: 20px;
 }
 
-.back-btn{
+.back-btn {
   background-color: #243f92;
   color: white;
   font: bold;
 }
 
-.card-detail-table th{
+.card-detail-table th {
   background-color: #243f92;
   color: white;
   padding: 10px;
 }
 
-.block-book-similar{
+.block-book-similar {
   width: 100%;
   display: grid;
 }
 
- .header {
-    padding: 15px 20px;
-  }
+.header {
+  padding: 15px 20px;
+}
 
-  .actions-div button{
-    background-color: #243f92;
-    color: white;
-    font: bold;
-  }
-
-  .books-grid-info{
-    background-color: #243f92;
-    padding: 15px;
-  }
-.books-grid-info h3{
+.actions-div button {
+  background-color: #243f92;
   color: white;
   font: bold;
 }
-.books-grid-info p{
+
+.books-grid-info {
+  background-color: #243f92;
+  padding: 15px;
+}
+.books-grid-info h3 {
+  color: white;
+  font: bold;
+}
+.books-grid-info p {
   color: white;
 }
 

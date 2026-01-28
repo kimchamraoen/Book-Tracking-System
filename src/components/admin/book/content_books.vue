@@ -4,6 +4,7 @@ import BookInfo_Block from './bookInfo_Block.vue'
 import booklistContent from './booklist-content.vue'
 import { useGlobalSearch } from '@/composables/useGlobalSearch.js'
 import { useRouter } from 'vue-router'
+import api from '@/services/api'
 
 export default {
   name: 'ContentBooks',
@@ -30,38 +31,44 @@ export default {
 
     const overviews = ref([
       {
+        key: 'total',
         title: 'Total Books',
-        count: 1250,
+        count: 0,
         blockColor: '#3730a3',
         description: 'Sum of books in the inventory',
       },
       {
+        key: 'available',
         title: 'Available Books',
-        count: 850,
+        count: 0,
         blockColor: '#3730a3',
         description: 'Books available for users',
       },
       {
+        key: 'reading',
         title: 'Reading Books',
-        count: 300,
+        count: 0,
         blockColor: '#3730a3',
         description: 'Books being read by users',
       },
       {
+        key: 'borrowed',
         title: 'Borrowed Books',
-        count: 300,
+        count: 0,
         blockColor: '#3730a3',
         description: 'Books Borrowed by users',
       },
       {
+        key: 'reserved',
         title: 'Reserved Books',
-        count: 300,
+        count: 0,
         blockColor: '#3730a3',
         description: 'Books Reserved by users',
       },
       {
+        key: 'lost',
         title: 'Lost Books',
-        count: 100,
+        count: 0,
         blockColor: '#3730a3',
         description: 'unavailable Books',
       },
@@ -171,6 +178,66 @@ export default {
       goToCreateBook,
     }
   },
+  methods: {
+  async fetchBookCounts() {
+    console.log('fetchBookCounts CALLED');
+    try {
+      const res = await api.get('/books'); // endpoint returns ALL books
+      console.log('Backend response:', res.data);
+
+      const books = res.data || [];
+
+      // Initialize counts
+      const counts = {
+        total: books.length,
+        available: 0,
+        reading: 0,
+        borrowed: 0,
+        reserved: 0,
+        lost: 0,
+      };
+
+      // Count each book by status
+      books.forEach((book) => {
+        switch (book.status) {
+          case 'available':
+            counts.available++;
+            break;
+          case 'reading':
+          case 'read':
+            counts.reading++;
+            break;
+          case 'borrowed':
+            counts.borrowed++;
+            break;
+          case 'reserved':
+            counts.reserved++;
+            break;
+          case 'lost':
+          case 'damaged':
+            counts.lost++;
+            break;
+          default:
+            console.warn('Unknown status:', book.status);
+        }
+      });
+
+      // Update overviews reactive array
+      this.overviews.forEach((item) => {
+        if (counts[item.key] !== undefined) {
+          item.count = counts[item.key];
+        }
+      });
+
+      console.log('Updated counts:', this.overviews);
+    } catch (error) {
+      console.error('Failed to fetch book counts', error);
+    }
+  },
+},
+mounted() {
+  this.fetchBookCounts();
+}
 }
 </script>
 
