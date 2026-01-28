@@ -4,9 +4,9 @@ import api from './api'
 const ENDPOINTS = {
   REGISTER: '/auth/register',
   LOGIN: '/auth/login',
-  PROFILE: '/admin/profile',
+  PROFILE: '/auth/profile',
   //   BOOK: "/books",
-    USER: '/users',
+  USER: '/users',
 }
 
 export const getAllUsers = async () => {
@@ -37,5 +37,11 @@ export const deleteUser = async (id) => {
 export const getProfile = async () => {
   // This hits your backend profile endpoint
   const response = await api.get(ENDPOINTS.PROFILE)
+  return response.data
+}
+
+export const getUsersByRole = async (role = 'user') => {
+  const params = role ? { role } : {}
+  const response = await api.get('/users', { params })
   return response.data
 }

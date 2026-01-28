@@ -24,30 +24,25 @@
               <input v-model="formData.author" type="text" />
             </div>
             <div class="input-group">
-              <label>Genre</label>
-              <select v-model="formData.genre">
-                <option>Fantasy</option>
-                <option>Romance</option>
-                <option>Science</option>
-                <option>Mystery</option>
-              </select>
+              <label>Item No.</label>
+              <input v-model="formData.itemNumber" type="text" />
             </div>
           </div>
 
           <div class="input-row">
             <div class="input-group">
-              <label>Department</label>
-              <input v-model="formData.department" type="text" />
+              <label>CLL No.</label>
+              <input v-model="formData.cllNumber" type="text" />
             </div>
             <div class="input-group">
               <label>Status</label>
-              <div class="toggle-wrapper">
-                <span :class="{ 'active-text': formData.availability }">Available</span>
-                <label class="switch">
-                  <input type="checkbox" v-model="formData.availability">
-                  <span class="slider"></span>
-                </label>
-              </div>
+              <select v-model="formData.status">
+                <option value="available">Available</option>
+                <option value="reading">Reading</option>
+                <option value="borrowed">Borrowed</option>
+                <option value="reserved">Reserved</option>
+                <option value="lost">Lost</option>
+              </select>
             </div>
           </div>
 

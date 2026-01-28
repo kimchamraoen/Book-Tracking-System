@@ -35,10 +35,10 @@
             <img :src="member.profileImage" alt="Member Profile" class="table-image" />
           </td>
           <td class="truncate-sm">{{ member.id }}</td>
-          <td class="truncate">{{ member.firstname }}</td>
-          <td class="truncate">{{ member.lastname }}</td>
+          <td class="truncate">{{ member.firstName }}</td>
+          <td class="truncate">{{ member.lastName }}</td>
           <td class="truncate">{{ member.email }}</td>
-          <td class="truncate">{{ member.phone }}</td>
+          <td class="truncate">{{ member.phoneNumber }}</td>
           <td class="truncate">{{ member.department }}</td>
           <td class="truncate">{{ member.role }}</td>
           <td>
@@ -74,6 +74,7 @@
 </template>
 <script>
 import { useMembersStore } from '../../../stores/members.js'
+import { getUsers } from '@/services/mamber-server.js';
 
 export default {
   name: 'MemberListContent',
@@ -81,6 +82,20 @@ export default {
   data() {
     return {
       membersStore: useMembersStore(),
+      users:[],
+      loading: false,
+    }
+  },
+  
+  async created() {
+    this.loading = true;
+    try {
+      const data = await getUsers();
+      this.users = data;
+    } catch{
+      alert('Failed to fetch users');
+    } finally {
+      this.loading = false;
     }
   },
   async mounted() {
@@ -115,9 +130,9 @@ export default {
     members() {
       return this.membersStore.members
     },
-    loading() {
-      return this.membersStore.loading
-    },
+    // loading() {
+    //   return this.membersStore.loading
+    // },
     error() {
       return this.membersStore.error
     },

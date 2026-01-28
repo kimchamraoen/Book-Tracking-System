@@ -1,108 +1,29 @@
 import { defineStore } from 'pinia'
+import { getUsersByRole } from '@/services/user-service.js' // make sure this exists
 
 export const useMembersStore = defineStore('members', {
   state: () => ({
-    members: [],
+    members: [], // all members fetched
+    users: [], // role === 'user'
+    others: [], // role !== 'user'
     selectedMember: null,
     loading: false,
     error: null,
   }),
 
   actions: {
+    // Fetch all members from backend
     async fetchMembers() {
       this.loading = true
       this.error = null
       try {
-        // Simulate API call - replace with real API endpoint
-        await new Promise((resolve) => setTimeout(resolve, 1000))
+        const allMembers = await getUsersByRole() // fetch everything if backend doesn't filter by role
+        this.members = allMembers
 
-        // Sample member data
-        this.members = [
-          {
-            id: 'e20210944',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'John',
-            lastname: 'Doe',
-            email: 'john.doe@example.com',
-            phone: '+1-234-567-8901',
-            role: 'Student',
-            department: 'Computer Science',
-            status: 'Active',
-            joinDate: '2023-01-15',
-            booksIssued: 3,
-            maxBooks: 5,
-          },
-          {
-            id: 'p20210876',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'Jane',
-            lastname: 'Smith',
-            email: 'jane.smith@example.com',
-            phone: '+1-234-567-8902',
-            role: 'Professor',
-            department: 'Literature',
-            status: 'Active',
-            joinDate: '2023-02-20',
-            booksIssued: 1,
-            maxBooks: 3,
-          },
-          {
-            id: 'e20211022',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'Mike',
-            lastname: 'Johnson',
-            email: 'mike.johnson@example.com',
-            phone: '+1-234-567-8903',
-            role: 'Student',
-            department: 'Mathematics',
-            status: 'Suspended',
-            joinDate: '2022-11-10',
-            booksIssued: 0,
-            maxBooks: 5,
-          },
-          {
-            id: 'e20211023',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'Sarah',
-            lastname: 'Wilson',
-            email: 'sarah.wilson@example.com',
-            phone: '+1-234-567-8904',
-            role: 'Student',
-            department: 'Physics',
-            status: 'Active',
-            joinDate: '2023-03-05',
-            booksIssued: 2,
-            maxBooks: 2,
-          },
-          {
-            id: 'p20210789',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'David',
-            lastname: 'Brown',
-            email: 'david.brown@example.com',
-            phone: '+1-234-567-8905',
-            role: 'Professor',
-            department: 'Engineering',
-            status: 'Active',
-            joinDate: '2020-08-12',
-            booksIssued: 4,
-            maxBooks: 10,
-          },
-          {
-            id: 'e20211024',
-            profileImage: '/src/assets/images/profile-avatar.jpg',
-            firstname: 'Emily',
-            lastname: 'Davis',
-            email: 'emily.davis@example.com',
-            phone: '+1-234-567-8906',
-            role: 'Professor',
-            department: 'Biology',
-            status: 'Expired',
-            joinDate: '2022-05-18',
-            booksIssued: 1,
-            maxBooks: 3,
-          },
-        ]
+        // Split by role
+        this.users = allMembers.filter((m) => m.role === 'user')
+        this.others = allMembers.filter((m) => m.role !== 'user')
+
         this.loading = false
       } catch (err) {
         this.error = 'Failed to fetch members. Please try again.'
@@ -111,13 +32,42 @@ export const useMembersStore = defineStore('members', {
       }
     },
 
+    // Fetch only users
+    async fetchUsers() {
+      this.loading = true
+      this.error = null
+      try {
+        // Backend supports query ?role=user
+        this.users = await getUsersByRole('user')
+        this.loading = false
+      } catch (err) {
+        this.error = 'Failed to fetch users. Please try again.'
+        this.loading = false
+        console.error('Error fetching users:', err)
+      }
+    },
+
+    // Fetch others (librarian/admin)
+    async fetchOthers() {
+      this.loading = true
+      this.error = null
+      try {
+        const allMembers = await getUsersByRole() // fetch all
+        this.others = allMembers.filter((m) => m.role !== 'user')
+        this.loading = false
+      } catch (err) {
+        this.error = 'Failed to fetch other members. Please try again.'
+        this.loading = false
+        console.error('Error fetching others:', err)
+      }
+    },
+
     async fetchMemberById(id) {
       this.loading = true
       this.error = null
       try {
-        await new Promise((resolve) => setTimeout(resolve, 500))
-
-        const member = this.members.find((m) => m.id === String(id))
+        const allMembers = this.members.length ? this.members : await getUsersByRole()
+        const member = allMembers.find((m) => m.id === String(id))
         if (member) {
           this.selectedMember = member
         } else {
@@ -133,7 +83,8 @@ export const useMembersStore = defineStore('members', {
 
     async updateMemberStatus(id, newStatus) {
       try {
-        await new Promise((resolve) => setTimeout(resolve, 300))
+        // call backend API to update status if exists, e.g.
+        // await api.patch(`/users/${id}`, { status: newStatus })
 
         const memberIndex = this.members.findIndex((m) => m.id === String(id))
         if (memberIndex !== -1) {
@@ -141,6 +92,9 @@ export const useMembersStore = defineStore('members', {
           if (this.selectedMember && this.selectedMember.id === String(id)) {
             this.selectedMember.status = newStatus
           }
+          // Update users / others arrays if needed
+          this.users = this.members.filter((m) => m.role === 'user')
+          this.others = this.members.filter((m) => m.role !== 'user')
           return true
         }
         return false

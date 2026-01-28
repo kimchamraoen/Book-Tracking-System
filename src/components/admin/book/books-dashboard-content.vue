@@ -31,6 +31,8 @@
 <script>
 import BookInfo_Block from './bookInfo_Block.vue'
 import booklistContent from './booklist-content.vue'
+import api from '@/api'
+
 export default {
   name: 'BooksDashboardContent',
   components: {
@@ -47,38 +49,44 @@ export default {
       sortOrder: 'asc',
       overviews: [
         {
+          key: 'total',
           title: 'Total Books',
-          count: 1250,
+          count: 0,
           blockColor: '#FFB4A8',
           description: 'Sum books in the inventory',
         },
         {
+          key: 'available',
           title: 'Available Books',
-          count: 850,
+          count: 0,
           blockColor: '#A3F7B5',
           description: 'Books currently available for users',
         },
         {
+          key: 'reading',
           title: 'Reading Books',
-          count: 300,
+          count: 0,
           blockColor: '#F7C59A',
           description: 'Books currently being read by users',
         },
         {
+          key: 'borrowed',
           title: 'Borrowed Books',
-          count: 300,
+          count: 0,
           blockColor: '#F7C59A',
-          description: 'Books currently Borrowed by users',
+          description: 'Books currently borrowed by users',
         },
         {
+          key: 'reserved',
           title: 'Reserved Books',
-          count: 300,
+          count: 0,
           blockColor: '#F7C59A',
-          description: 'Books currently Reserved by users',
+          description: 'Books currently reserved by users',
         },
         {
+          key: 'lost',
           title: 'Lost/Damaged Books',
-          count: 100,
+          count: 0,
           blockColor: '#F7A3A3',
           description: 'Books currently unavailable for users',
         },
@@ -86,43 +94,65 @@ export default {
     }
   },
   methods: {
-    goToDetails(title) {
-      // Logic to navigate to detailed view
-      this.$router.push({ name: 'BookDetails', params: { category: title } })
-    },
-    setSort(option) {
-      this.selectedSort = option
-    },
-    toggleDropdown() {
-      this.isDropdownOpen = !this.isDropdownOpen
-    },
-    selectOption(option) {
-      this.selectedSort = option
-      this.isDropdownOpen = false
-    },
-    selectKey(key) {
-      this.selectedKey = key
-      this.selectedValue = null
-      this.sortLabel = `${this.options.find((o) => o.key === key)?.label || 'None'}${
-        this.selectedValue ? ' → ' + this.selectedValue : ''
-      }`
-    },
-    titleCase(s) {
-      return s ? s[0].toUpperCase() + s.slice(1) : ''
-    },
-    chooseValue(val) {
-      this.selectedValue = val
-      this.isDropdownOpen = false
-    },
-    chooseSort(order) {
-      this.sortOrder = order
-      this.selectedValue = null
-      this.isDropdownOpen = false
-    },
+  async fetchBookCounts() {
+    console.log('fetchBookCounts CALLED');
+    try {
+      const res = await api.get('/admin/books'); // endpoint returns ALL books
+      console.log('Backend response:', res.data);
+
+      const books = res.data || [];
+
+      // Initialize counts
+      const counts = {
+        total: books.length,
+        available: 0,
+        reading: 0,
+        borrowed: 0,
+        reserved: 0,
+        lost: 0,
+      };
+
+      // Count each book by status
+      books.forEach((book) => {
+        switch (book.status) {
+          case 'available':
+            counts.available++;
+            break;
+          case 'reading':
+            counts.reading++;
+            break;
+          case 'borrowed':
+            counts.borrowed++;
+            break;
+          case 'reserved':
+            counts.reserved++;
+            break;
+          case 'lost':
+          case 'damaged':
+            counts.lost++;
+            break;
+          default:
+            console.warn('Unknown status:', book.status);
+        }
+      });
+
+      // Update overviews reactive array
+      this.overviews.forEach((item) => {
+        if (counts[item.key] !== undefined) {
+          item.count = counts[item.key];
+        }
+      });
+
+      console.log('Updated counts:', this.overviews);
+    } catch (error) {
+      console.error('Failed to fetch book counts', error);
+    }
   },
+},
+mounted() {
+  this.fetchBookCounts();
+}
 }
 </script>
 
-<style scoped>
-  
-</style>
+<style scoped></style>
