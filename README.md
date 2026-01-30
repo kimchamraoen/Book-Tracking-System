@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/itc.png" width="150" alt="ITC Logo" />
+  <img src="src/assets/images/lib_itc_profile.png" width="150" alt="ITC Logo" />
 </p>
 
 <h1 align="center">Library Book Tracking System - Frontend</h1>
