@@ -162,3 +162,161 @@ Each team member contributed actively to the project.
 | LACH Theary | Web | UI, Integration |
 | YORN Soksunnara | Mobile | UI, Integration |
 | SOR Thanaroth | Mobile | UI, Integration |
+
+
+## 💻 Local Development Setup Guide
+
+This section explains how a new developer can download, configure, and run the project on a local computer.
+
+---
+
+### System Requirements
+
+Before starting, make sure the following software is installed:
+
+- Node.js (v18 or higher)
+- npm (comes with Node.js)
+- Git
+- MySQL Database
+- Code Editor (VS Code recommended)
+- Modern Web Browser (Chrome, Firefox, Edge)
+
+---
+
+### Step 1: Download the Project
+
+Clone the repository from GitHub:
+
+```bash
+git clone <repository-url>
+cd Book-Tracking-System-Frontend
+```
+
+If Git is not available, download the ZIP file from GitHub and extract it.
+
+---
+
+### Step 2: Install Project Dependencies
+
+Install all required packages:
+
+```bash
+npm install
+```
+
+This will download all dependencies listed in `package.json`.
+
+---
+
+### Step 3: Configure Environment Variables
+
+Create a `.env` file in the project root directory. The `.env` file should have set up the configuration that able to run the systen locally
+
+---
+
+### Step 4: Run the Backend Server
+
+Before running the frontend, ensure that the backend API is running.
+
+Example (Backend):
+
+```bash
+npm run start:dev
+```
+
+Backend should be available locally at:
+
+```
+http://localhost:3000
+```
+or it can be available on AWS Cloud:
+
+```
+https://09m5ce57m2.execute-api.us-east-1.amazonaws.com
+```
+
+---
+
+### Step 5: Start the Frontend Application
+
+Run the development server:
+
+```bash
+npm run dev
+```
+
+After starting, the application will be available at:
+
+```
+http://localhost:5173
+```
+
+---
+
+### Step 6: Verify the System
+
+Open a web browser and visit:
+
+```
+http://localhost:5173
+```
+
+Check the following:
+
+- Login page loads correctly
+- User authentication works
+- Book data is displayed
+- API connection is successful
+- No console errors
+
+If all checks pass, the system is running correctly.
+
+---
+
+### Common Issues & Solutions
+
+| Issue | Cause | Solution |
+|-------|--------|----------|
+| npm install fails | Missing Node.js | Install Node.js |
+| API not connecting | Backend not running | Start backend server |
+| Blank page | Environment error | Check `.env` file |
+| Permission error | Port conflict | Change port number |
+
+---
+
+### Development Notes
+
+- Always pull the latest code before starting work:
+  ```bash
+  git pull
+  ```
+- Do not commit `.env` files
+- Follow coding standards
+- Run lint before pushing code
+
+This guide ensures that any new developer can set up and run the system locally.
+
+## 🔗 Related Repositories
+
+This project is part of the complete Library Book Tracking System, which consists of multiple platforms.
+
+### System Repositories
+
+- Backend API  
+  [https://github.com/your-username/book-tracking-backend](https://github.com/Malikaaaaaaaaaaa/Book-Tracking-System-Backend)
+
+- Mobile Application  
+  https://github.com/your-username/book-tracking-mobile
+
+### Repository Purpose
+
+Each repository has a specific responsibility:
+
+| Repository | Purpose |
+|------------|----------|
+| Backend | Business logic, database, authentication, cloud services |
+| Frontend | Web interface, user interaction, API integration |
+| Mobile | QR scanning, mobile access, notifications |
+
+These repositories work together to form a complete library management system.
+
